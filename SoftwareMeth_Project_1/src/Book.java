@@ -39,7 +39,8 @@ public class Book {
             Book otherBook=(Book) obj;
             boolean areEqual=otherBook.number.equals(this.number);
             return areEqual;
-        } else {
+        } 
+        else {
             return false;
         }
     }
