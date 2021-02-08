@@ -1,4 +1,3 @@
-import java.util.Date;
 
 public class Book {
     private String number; //a 5-digit serial number unique to the book
