@@ -14,8 +14,8 @@ public class Book {
 
 
     //Getter methods
-    public int getSerial() {
-        return Integer.parseInt(number);
+    public String getSerial() {
+        return number;
     }
     public String getName() {
         return name;
@@ -39,8 +39,7 @@ public class Book {
             Book otherBook=(Book) obj;
             boolean areEqual=otherBook.number.equals(this.number);
             return areEqual;
-        } 
-        else {
+        } else {
             return false;
         }
     }
