@@ -5,10 +5,17 @@ public class Book {
     private String name;
     private boolean checkedOut;
     private Date datePublished;
+
+    public Book(String number, String name, Date datePublished){
+        this.number=number;
+        this.name=name;
+        this.datePublished=datePublished;
+        this.checkedOut=false;
+    }
     
 
     //Getter methods
-    public String getNumber() {
+    public String getSerial() {
         return number;
     }
     public String getName() {
@@ -20,23 +27,6 @@ public class Book {
     public Date getDatePublished() {
         return datePublished;
     }
-
-
-    //Setter methods
-    public void setNumber(String newNumber) {
-        this.number = newNumber; 
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setCheckedOut(boolean checkedOut) {
-        this.checkedOut = checkedOut;
-    }
-    public void setDatePublished(Date datePublished) {
-        this.datePublished = datePublished;
-    }
-
-
 
     @Override
     public boolean equals(Object obj){ 
