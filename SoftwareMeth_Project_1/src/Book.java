@@ -11,28 +11,50 @@ public class Book {
         this.datePublished=datePublished;
         this.checkedOut=false;
     }
-    
+
 
     //Getter methods
-    public String getSerial() {
-        return number;
+    public int getSerial() {
+        return Integer.parseInt(number);
     }
     public String getName() {
         return name;
     }
     public boolean getCheckedout() {
-        return checkedOut; 
+        return checkedOut;
     }
     public Date getDatePublished() {
         return datePublished;
     }
 
-    @Override
-    public boolean equals(Object obj){ 
-        
+    //setter methods
+    public void setCheckedOut(boolean checkedOut) {
+        this.checkedOut = checkedOut;
     }
-    @Override
-    public String toString() { 
 
+    ////equals() method returns true if the serial numbers for the 2 book objects are the same.
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Book){
+            Book otherBook=(Book) obj;
+            boolean areEqual=otherBook.number.equals(this.number);
+            return areEqual;
+        } else {
+            return false;
+        }
+    }
+
+    //toString() method returns a textual representation of a book in the following format.
+    @Override
+    public String toString() {
+        String dateStr=datePublished.toString();
+        String checkedOut;
+        if (this.checkedOut==true){
+            checkedOut="is not available";
+        }
+        else{
+            checkedOut="is available";
+        }
+        return "Book#"+number+"::"+name+"::"+dateStr+"::"+checkedOut;
     }
 }
