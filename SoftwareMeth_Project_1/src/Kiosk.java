@@ -131,7 +131,7 @@ public class Kiosk {
                         }
                         else{
                             System.out.println("**List of books by the book numbers.");
-                            Library.printBySerial();
+                            Library.printByNumber();
                             System.out.println("**End of list");
                         }
                     }
