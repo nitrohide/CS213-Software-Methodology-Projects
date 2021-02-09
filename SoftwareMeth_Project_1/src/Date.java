@@ -54,6 +54,20 @@ public class Date {
         
     }
 
+
+    //getter methods
+    public int getMonth(){
+        return month;
+    }
+    public int getDay(){
+        return day;
+    }
+    public int getYear(){
+        return year; 
+    }
+
+
+
     public boolean isValid() { 
 
         Calendar currDate = Calendar.getInstance();
@@ -116,4 +130,3 @@ public class Date {
     
 
 }
-
