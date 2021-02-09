@@ -23,7 +23,7 @@ public class Date {
     public static final int NOVEMBER = 10;
     public static final int DECEMBER = 11;
     public static final int CURRENT_YEAR = 2021;
-    public static final int YEAR_1900 = 2021;
+    public static final int YEAR_1900 = 1900;
     public static final int QUADRENNIAL = 4;
     public static final int CENTENNIAL = 100;
     public static final int QUARTERCENTENNIAL = 400;
@@ -75,8 +75,20 @@ public class Date {
         if (this.year <= 0 || this.day <= 0 || this.month < 0) //check if day, month, year is a negative value (or 0 for day & year)
             return false; 
         
-        if ( this.year < YEAR_1900 || this.year > CURRENT_YEAR || this.month > (currDate.get(Calendar.MONTH) + 1) //if date exceeds today's date, return false
-        || this.day > currDate.get(Calendar.DAY_OF_MONTH)) return false; 
+        if ( this.year < YEAR_1900 || this.year > CURRENT_YEAR) 
+            return false;
+        if ( this.year == CURRENT_YEAR){ //if year value is of our current year 
+            if (this.month > (currDate.get(Calendar.MONTH) + 1)){ //if month value exceeds current month, invalid date
+                return false; 
+            }
+            if (this.month == (currDate.get(Calendar.MONTH) + 1)){ //if month value is current month 
+                if (this.day > currDate.get(Calendar.DAY_OF_MONTH)) //if day value is greater than current day, invalid date
+                    return false; 
+                
+            }
+        }
+        
+        
         
         if (this.month == JANUARY && this.day > DAY_31) //check if day in January is invalid
             return false; 
