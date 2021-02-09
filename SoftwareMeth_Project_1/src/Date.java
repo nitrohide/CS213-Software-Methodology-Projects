@@ -10,18 +10,18 @@ public class Date {
     private int day;
 
     //all constant variables
-    public static final int JANUARY = 0;
-    public static final int FEBRUARY = 1;
-    public static final int MARCH = 2;
-    public static final int APRIL = 3;
-    public static final int MAY = 4;
-    public static final int JUNE = 5;
-    public static final int JULY = 6;
-    public static final int AUGUST = 7;
-    public static final int SEPTEMBER = 8;
-    public static final int OCTOBER = 9;
-    public static final int NOVEMBER = 10;
-    public static final int DECEMBER = 11;
+    public static final int JANUARY = 1;
+    public static final int FEBRUARY = 2;
+    public static final int MARCH = 3;
+    public static final int APRIL = 4;
+    public static final int MAY = 5;
+    public static final int JUNE = 6;
+    public static final int JULY = 7;
+    public static final int AUGUST = 8;
+    public static final int SEPTEMBER = 9;
+    public static final int OCTOBER = 10;
+    public static final int NOVEMBER = 11;
+    public static final int DECEMBER = 12;
     public static final int CURRENT_YEAR = 2021;
     public static final int YEAR_1900 = 1900;
     public static final int QUADRENNIAL = 4;
