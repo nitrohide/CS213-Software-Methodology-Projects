@@ -1,18 +1,31 @@
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+ /**
+ a
+ */
+
 public class Kiosk {
-    final int starting_serial=10001;
+    final int STARTING_SERIAL = 10001;
+    final int ADD_ARGS = 3;
+    final int MOD_ARGS = 2;
+    final int DISPLAY_ARGS = 1;
     public void run() {
 
         Library Library=new Library();
         System.out.println("Library Kiosk running");
         boolean kioskStatus=true;
-        int serialNumber=starting_serial;
+        int serialNumber=STARTING_SERIAL;
         Scanner scanner=new Scanner(System.in);
 
         while (kioskStatus==true && scanner.hasNext()){
-            StringTokenizer tokens=new StringTokenizer(scanner.nextLine(),",");
+            String nextLine=scanner.nextLine();
+            if (nextLine.equals("")){
+                nextLine=" ";
+            }
+            StringTokenizer tokens=new StringTokenizer(nextLine,",");
+
+
             int numArgs= tokens.countTokens(); //use this later to maybe test invalid input
             String command = tokens.nextToken(); //the command flag, first parameter
 
@@ -22,7 +35,7 @@ public class Kiosk {
                     break;
 
                 case "A":
-                    if (numArgs==3){ //need all 3 arguments to add a book IS THIS A MAGIC NUMBER?
+                    if (numArgs==ADD_ARGS){ //need all 3 arguments to add a book IS THIS A MAGIC NUMBER?
                         String number=String.valueOf(serialNumber); //the next available serial number
                         String name=tokens.nextToken(); //name of book
                         String datePublished=tokens.nextToken(); //date published of book
@@ -42,7 +55,7 @@ public class Kiosk {
                     }
                     break;
                 case "R":
-                    if (numArgs==2){ //need 2 arguments to remove a book, (R,serialnumber) IS THIS A MAGIC NUMBER?
+                    if (numArgs==MOD_ARGS){ //need 2 arguments to remove a book, (R,serialnumber) IS THIS A MAGIC NUMBER?
                         String numberStr=tokens.nextToken();
                         int bookNumber=Integer.parseInt(numberStr);
                         Book Book= Library.search(bookNumber);
@@ -59,7 +72,7 @@ public class Kiosk {
                     }
                     break;
                 case "O":
-                    if (numArgs == 2) {
+                    if (numArgs == MOD_ARGS) {
                         String numberStr=tokens.nextToken();
                         int bookNumber=Integer.parseInt(numberStr);
                         Book Book= Library.search(bookNumber);
@@ -77,7 +90,7 @@ public class Kiosk {
                     }
                     break;
                 case "I":
-                    if (numArgs==2){
+                    if (numArgs==MOD_ARGS){
                         String numberStr=tokens.nextToken();
                         int bookNumber=Integer.parseInt(numberStr);
                         Book Book= Library.search(bookNumber);
@@ -95,7 +108,7 @@ public class Kiosk {
                     }
                     break;
                 case "PA":
-                    if (numArgs==1){
+                    if (numArgs==DISPLAY_ARGS){
                         if(Library.getNumBooks()==0){
                             System.out.println("Library catalog is empty!");
                         }
@@ -110,7 +123,7 @@ public class Kiosk {
                     }
                     break;
                 case "PD":
-                    if (numArgs==1){
+                    if (numArgs==DISPLAY_ARGS){
                         if(Library.getNumBooks()==0){
                             System.out.println("Library catalog is empty!");
                         }
@@ -125,7 +138,7 @@ public class Kiosk {
                     }
                     break;
                 case "PN":
-                    if (numArgs==1){
+                    if (numArgs==DISPLAY_ARGS){
                         if(Library.getNumBooks()==0){
                             System.out.println("Library catalog is empty!");
                         }
@@ -139,6 +152,10 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
+                case " ":
+                    break;
+                default:
+                    System.out.println("Invalid command!");
             }
         }
         System.out.println("Kiosk session ended.");
