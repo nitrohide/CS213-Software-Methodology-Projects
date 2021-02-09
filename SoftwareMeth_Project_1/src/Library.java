@@ -113,19 +113,27 @@ public class Library {
     
 
         //Using a simple selection sort algorithm to sort books by date in ascending order
-        for (int i = 0; i < books.length-1; i++) 
+        for (int i = 0; i < books.length-1; i++) //keep track of sorted part of bag
         { 
             
             int min_idx = i; 
             for (int j = i + 1; j < books.length; j++) {
+
+                if ( books[j] == null || books[min_idx] == null) //if space in bag is empty, ignore and continue 
+                    continue; 
+
                 if (books[j].getDatePublished().getYear() < books[min_idx].getDatePublished().getYear()){ //if year of index j is less than that of min_idx
                     min_idx = j; 
+
                 }
                 if (books[j].getDatePublished().getYear() == books[min_idx].getDatePublished().getYear()){ //if year of index j is equal to that of min_idx, check month
+                    
                     if ( books[j].getDatePublished().getMonth() < books[min_idx].getDatePublished().getMonth() ){ //continue to compare month values
                         min_idx = j;
                     }
+                    
                     if ( books[j].getDatePublished().getMonth() == books[min_idx].getDatePublished().getMonth()){ //if months are equal, compare day
+                        
                         if ( books[j].getDatePublished().getDay() < books[min_idx].getDatePublished().getDay()){ //compare day values
                             min_idx = j;
                         }
@@ -136,6 +144,7 @@ public class Library {
                  
             }
            
+            //swapping the minimum element into the sorted region to complete iteration
             Book temp = books[min_idx]; 
             books[min_idx] = books[i]; 
             books[i] = temp; 
@@ -155,16 +164,21 @@ public class Library {
 
 
         //Using a simple selection sort algorithm to sort books by serial number in ascending order
-        for (int i = 0; i < books.length-1; i++) 
+        for (int i = 0; i < books.length-1; i++) //keep track of sorted part of bag
         { 
             
             int min_idx = i; 
             for (int j = i + 1; j < books.length; j++) {
-                if (Integer.parseInt(books[j].getSerial()) < Integer.parseInt(books[min_idx].getSerial())) 
+                
+                if (books[j] == null || books[min_idx] == null) //if space in bag is empty, ignore and continue 
+                    continue;
+
+                if (Integer.parseInt(books[j].getSerial()) < Integer.parseInt(books[min_idx].getSerial())) //find smallest SN in unsorted region of bag
                     min_idx = j; 
             }
            
-            Book temp = books[i]; 
+            //swapping the minimum element into the sorted region to complete iteration
+            Book temp = books[i];  
             books[i] = books[min_idx]; 
             books[min_idx] = temp; 
         }
@@ -174,7 +188,7 @@ public class Library {
         }
     } 
 
-    public Book search(int number){
+    public Book search(int number){  //helper method to find a book by serial number for convenience 
         for(int i=0;i<numBooks;i++){
             if(Integer.parseInt(books[i].getSerial())==number){
                 return books[i];
@@ -183,12 +197,14 @@ public class Library {
         return null;
     }
 
-    public int getNumBooks(){
+    public int getNumBooks(){  //helper method to get number of books currently in bag
         return numBooks;
     }
 
 
     } 
+
+
 
 
 
