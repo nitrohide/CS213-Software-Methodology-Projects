@@ -55,6 +55,6 @@ public class Book {
         else{
             checkedOut="is available";
         }
-        return "Book#"+number+"::"+name+"::"+dateStr+"::"+checkedOut;
+        return "Book#"+number+"::"+name+"::"+datePublished.getMonth()+"/"+datePublished.getDay()+"/"+datePublished.getYear()+"::"+checkedOut;
     }
 }
