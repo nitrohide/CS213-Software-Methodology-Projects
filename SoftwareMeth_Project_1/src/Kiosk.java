@@ -6,7 +6,6 @@ import java.util.StringTokenizer;
  * The user can interact with the Library bag from the Kiosk class
  * @author Anuraj Dubey, Chenghao Lin
 */
-
 public class Kiosk {
     final int STARTING_SERIAL = 10001; //The first serial number available
     final int ADD_ARGS = 3;            //The required number of arguments to add a book
