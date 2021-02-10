@@ -46,16 +46,21 @@ public class Library {
     public boolean remove(Book book) { //also shifts and readjusts all interior elements after removal
         int index_to_remove = find(book);
 
-        for (int j = index_to_remove; j < books.length-1; j++ ){//traverse through rest of bag and shift to left
-            if (books[j+1] == null){ //make last element in list null to accomodate for removed book
+        for ( int j = index_to_remove; j < books.length ; j++ ){//traverse through rest of bag and shift to left
+            if ( j == (books.length - 1) ){ //check if traversal reaches last index of bag
+                books[j] = null; //if last index of bag, set to null in order to accomodate for removed book
+                numBooks--;
+                return true;
+            }
+            if ( books[j+1] == null){ //make last element in list null to accomodate for removed book
                 books[j] = null;
                 numBooks--;
-                return true; //also display “Book# xyz removed.”
+                return true; //also displays “Book# xyz removed.”
             }
             books[j] = books[j+1]; //set each element to value of next to preserve order of books
         }
 
-        return false; //also display "Unable to remove, the library does not have this book."
+        return false; //also displays "Unable to remove, the library does not have this book."
     }
 
     public boolean checkOut(Book book) {
