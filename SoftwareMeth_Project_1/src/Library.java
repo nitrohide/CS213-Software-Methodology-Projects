@@ -31,7 +31,7 @@ public class Library {
 
 
     public void add(Book book) { //adds book to end of array. If full, calls grow()
-        if (books[books.length-1]!=null){
+        if (books[books.length-1]!= null){
             grow();
         }
         for (int i = 0; i < books.length; i++ ){
@@ -57,7 +57,7 @@ public class Library {
                 numBooks--;
                 return true; //also displays “Book# xyz removed.”
             }
-            books[j] = books[j+1]; //set each element to value of next to preserve order of books
+            books[j] = books[j + 1]; //set each element to value of next to preserve order of books
         }
 
         return false; //also displays "Unable to remove, the library does not have this book."
@@ -107,7 +107,7 @@ public class Library {
     public void print() {  //print the list of books in the bag
 
         for(int i = 0; i < books.length; i++){
-            if (books[i]!=null) {
+            if (books[i]!= null) {
                 System.out.println(books[i].toString());
             }
         }
@@ -156,9 +156,7 @@ public class Library {
             books[i] = temp;
         }
 
-        for(int i = 0; i < books.length; i++){  //print the sorted bag of books
-            System.out.println(books[i]);
-        }
+        print(); //print the sorted bag 
 
 
     }
@@ -168,7 +166,7 @@ public class Library {
 
 
         //Using a simple selection sort algorithm to sort books by serial number in ascending order
-        for (int i = 0; i < books.length-1; i++) //keep track of sorted part of bag
+        for (int i = 0; i < books.length - 1; i++) //keep track of sorted part of bag
         {
 
             int min_idx = i;
@@ -187,15 +185,13 @@ public class Library {
             books[min_idx] = temp;
         }
 
-        for(int i = 0; i < books.length; i++){  //print the sorted bag of books
-            System.out.println(books[i]);
-        }
+        print(); //print the sorted bag
     }
 
 
     public Book search(int number){
-        for(int i=0;i<numBooks;i++){
-            if(Integer.parseInt(books[i].getSerial())==number){
+        for (int i = 0;i < numBooks; i++){
+            if (Integer.parseInt(books[i].getSerial())==number){
                 return books[i];
             }
         }
