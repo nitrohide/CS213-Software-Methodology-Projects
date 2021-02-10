@@ -50,10 +50,10 @@ public class Book {
         String dateStr=datePublished.toString();
         String checkedOut;
         if (this.checkedOut==true){
-            checkedOut="is not available";
+            checkedOut="is checked out.";
         }
         else{
-            checkedOut="is available";
+            checkedOut="is available.";
         }
         return "Book#"+number+"::"+name+"::"+datePublished.getMonth()+"/"+datePublished.getDay()+"/"+datePublished.getYear()+"::"+checkedOut;
     }
