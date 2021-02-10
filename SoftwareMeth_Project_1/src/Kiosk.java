@@ -26,7 +26,7 @@ public class Kiosk {
         int serialNumber = STARTING_SERIAL;
         Scanner scanner = new Scanner(System.in);
 
-        while (kioskStatus == true && scanner.hasNext()){ //will keep running until command Q is inputted
+        while (kioskStatus && scanner.hasNext()){ //will keep running until command Q is inputted
             String nextLine = scanner.nextLine();
             if (nextLine.equals("")){                     //To prevent String Tokenizer class error
                 nextLine=" ";
@@ -90,7 +90,7 @@ public class Kiosk {
                         String numberStr = tokens.nextToken();
                         int bookNumber = Integer.parseInt(numberStr);
                         Book Book = Library.search(bookNumber);
-                        if (Book == null || Book.getCheckedout() == true){
+                        if (Book == null || Book.getCheckedout()){
                             System.out.println("Book#" + numberStr + " is not available.");
                         }
                         else{
@@ -109,7 +109,7 @@ public class Kiosk {
                         String numberStr = tokens.nextToken();
                         int bookNumber = Integer.parseInt(numberStr);
                         Book Book = Library.search(bookNumber);
-                        if (Book == null || Book.getCheckedout() == false){
+                        if (Book == null || !Book.getCheckedout()){
                             System.out.println("Unable to return Book#"+numberStr+".");
                         }
                         else{
@@ -170,10 +170,10 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                    
+
                 case " ":         //passes the empty input values
                     break;
-                    
+
                 default:          //any other command that is not a case passes through here
                     System.out.println("Invalid command!");
             }
