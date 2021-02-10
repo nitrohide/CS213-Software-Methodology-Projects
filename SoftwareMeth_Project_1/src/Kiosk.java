@@ -76,7 +76,7 @@ public class Kiosk {
                         String numberStr=tokens.nextToken();
                         int bookNumber=Integer.parseInt(numberStr);
                         Book Book= Library.search(bookNumber);
-                        if (Book==null){
+                        if (Book==null || Book.getCheckedout()==true){
                             System.out.println("Book#"+numberStr+ " is not available.");
                         }
                         else{
@@ -94,13 +94,13 @@ public class Kiosk {
                         String numberStr=tokens.nextToken();
                         int bookNumber=Integer.parseInt(numberStr);
                         Book Book= Library.search(bookNumber);
-                        if (Book==null){
+                        if (Book==null || Book.getCheckedout()==false){
                             System.out.println("Unable to return Book#"+numberStr+".");
                         }
                         else{
                             //Library.remove(Book); //only checkout? or remove as well
                             Library.returns(Book);
-                            System.out.println("Book#"+numberStr+" return has completed. Thanks!.");
+                            System.out.println("Book#"+numberStr+" return has completed. Thanks!");
                         }
                     }
                     else{
