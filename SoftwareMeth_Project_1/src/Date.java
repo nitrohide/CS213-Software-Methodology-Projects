@@ -184,70 +184,188 @@ public class Date {
 
         //test1, testing today's date,tomorrow's date, yesterday's date
         System.out.println("\nTest block 1, testing today, tomorrow, and yesterdays date");
-        Date test1_case1 = new Date("2/9/2021");
-        System.out.println("is 2/9/2021 a valid date:" + test1_case1.isValid());
-        Date test1_case2 = new Date("2/10/2021");
-        System.out.println("is 2/10/2021 a valid date:" + test1_case2.isValid());
-        Date test1_case3 = new Date("2/8/2021");
-        System.out.println("is 2/8/2021 a valid date:" + test1_case3.isValid());
+        Date test1_case1=new Date("2/9/2021");
+        if (test1_case1.isValid()){
+            System.out.println("Creating date that is today's date. PASSED");
+        }
+        else{
+            System.out.println("Creating date that is today's date. FAILED");
+        }
+        Date test1_case2=new Date("2/10/2021");
+        if (!test1_case2.isValid()){
+            System.out.println("Creating date that is tomorrow's date. PASSED");
+        }
+        else{
+            System.out.println("Creating date that is tomorrow's date. FAILED");
+        }
+        Date test1_case3=new Date("2/8/2021");
+        if (test1_case3.isValid()){
+            System.out.println("Creating date that is yesterday's date. PASSED");
+        }
+        else{
+            System.out.println("Creating date that is yesterday's date. FAILED");
+        }
 
         //test 2, testing year ranges, too old(before 1900), in the future(after 2021), right at the cutoff(1900)
         System.out.println("\nTest block 2, testing years that are too old, right at cutoff, in the future");
-        Date test2_case1 = new Date("1/10/1899");
-        System.out.println("is 1/10/1899 a valid date:" + test2_case1.isValid());
-        Date test2_case2 = new Date("1/10/1900");
-        System.out.println("is 1/10/1900 a valid date:" + test2_case2.isValid());
-        Date test2_case3 = new Date("1/10/2022");
-        System.out.println("is 1/10/2022 a valid date:" + test2_case3.isValid());
+        Date test2_case1=new Date("1/10/1899");
+        if (!test2_case1.isValid()){
+            System.out.println("Creating date that is too old. PASSED");
+        }
+        else{
+            System.out.println("Creating date that is too old. FAILED");
+        }
+        Date test2_case2=new Date("1/10/1900");
+        if (test2_case2.isValid()){
+            System.out.println("Creating date that is right at cutoff(1900). PASSED");
+        }
+        else{
+            System.out.println("Creating date that is right at cutoff(1900). FAILED");
+        }
+        Date test2_case3=new Date("1/10/2022");
+        if (!test2_case3.isValid()){
+            System.out.println("Creating date that is in the future. PASSED");
+        }
+        else{
+            System.out.println("Creating date that is in the future. FAILED");
+        }
 
         //test 3, testing months too large/small, days too large/small
         System.out.println("\nTest block 3, testing months and days too large/small");
-        Date test3_case1 = new Date("31/2/2000");
-        System.out.println("is 31/2/2000 a valid date:" + test3_case1.isValid());
-        Date test3_case2 = new Date("13/2/2020");
-        System.out.println("is 13/2/2020 a valid date:" + test3_case2.isValid());
-        Date test3_case3 = new Date("0/5/1999");
-        System.out.println("is 0/5/1999 a valid date:" + test3_case3.isValid());
-        Date test3_case4 = new Date("1/0/1999");
-        System.out.println("is 1/0/1999 a valid date:" + test3_case4.isValid());
-        Date test3_case5 = new Date("1/50/1999");
-        System.out.println("is 1/50/1999 a valid date:" + test3_case5.isValid());
-        Date test3_case6 = new Date("2/32/1999");
-        System.out.println("is 2/32/1999 a valid date:" + test3_case6.isValid());
+        Date test3_case1=new Date("31/2/2000");
+        if (!test3_case1.isValid()){
+            System.out.println("Creating date with month value too large. PASSED");
+        }
+        else{
+            System.out.println("Creating date with month value too large. FAILED");
+        }
+        Date test3_case2=new Date("13/2/2020");
+        if (!test3_case2.isValid()){
+            System.out.println("Creating date with month value barely too large. PASSED");
+        }
+        else{
+            System.out.println("Creating date with month value barely too large. FAILED");
+        }
+        Date test3_case3=new Date("0/5/1999");
+        if (!test3_case3.isValid()){
+            System.out.println("Creating date with month value too small. PASSED");
+        }
+        else{
+            System.out.println("Creating date with month value too small. FAILED");
+        }
+        Date test3_case4=new Date("1/0/1999");
+        if (!test3_case4.isValid()){
+            System.out.println("Creating date with day value too small. PASSED");
+        }
+        else{
+            System.out.println("Creating date with day value too small. FAILED");
+        }
+        Date test3_case5=new Date("1/50/1999");
+        if (!test3_case5.isValid()){
+            System.out.println("Creating date with day value too large. PASSED");
+        }
+        else{
+            System.out.println("Creating date with day value too large. FAILED");
+        }
+        Date test3_case6=new Date("2/32/1999");
+        if (!test3_case6.isValid()){
+            System.out.println("Creating date with day value barely too large. PASSED");
+        }
+        else{
+            System.out.println("Creating date with day value barely too large. FAILED");
+        }
 
         //test 4, testing months with their respective number of days
         System.out.println("\nTest block 4, testing months with their respective number of days");
-        Date test4_case1 = new Date("1/31/2000");
-        System.out.println("is 1/31/2000 a valid date:" + test4_case1.isValid());
-        Date test4_case2 = new Date("4/31/2000");
-        System.out.println("is 4/31/2000 a valid date:" + test4_case2.isValid());
-        Date test4_case3 = new Date("5/31/2000");
-        System.out.println("is 5/31/2000 a valid date:" + test4_case3.isValid());
-        Date test4_case4 = new Date("6/31/2000");
-        System.out.println("is 6/31/2000 a valid date:" + test4_case4.isValid());
+        Date test4_case1=new Date("1/31/2000");
+        if (test4_case1.isValid()){
+            System.out.println("Creating date on last day of January. PASSED");
+        }
+        else{
+            System.out.println("Creating date on last day of January. FAILED");
+        }
+        Date test4_case2=new Date("4/31/2000");
+        if (!test4_case2.isValid()){
+            System.out.println("Creating date on last day of April. PASSED");
+        }
+        else{
+            System.out.println("Creating date on last day of April. FAILED");
+        }
+        Date test4_case3=new Date("5/31/2000");
+        if (test4_case3.isValid()){
+            System.out.println("Creating date on last day of May. PASSED");
+        }
+        else{
+            System.out.println("Creating date on last day of May. FAILED");
+        }
+        Date test4_case4=new Date("6/31/2000");
+        if (!test4_case4.isValid()){
+            System.out.println("Creating date on last day of June. PASSED");
+        }
+        else{
+            System.out.println("Creating date on last day of June. FAILED");
+        }
 
         //test 5, testing leap years
         System.out.println("\nTest block 4, testing for leap years");
-        Date test5_case1 = new Date("2/29/2020");
-        System.out.println("is 2/29/2020 a valid date:" + test5_case1.isValid());
-        Date test5_case2 = new Date("2/29/2009");
-        System.out.println("is 2/29/2009 a valid date:" + test5_case2.isValid());
-        Date test5_case3 = new Date("2/29/2000");
-        System.out.println("is 2/29/2000 a valid date:" + test5_case3.isValid());
-        Date test5_case4 = new Date("2/29/1900");
-        System.out.println("is 2/29/1900 a valid date:" + test5_case4.isValid());
-        Date test5_case5 = new Date("2/29/1904");
-        System.out.println("is 2/29/1904 a valid date:" + test5_case5.isValid());
+        Date test5_case1=new Date("2/29/2020");
+        if (test5_case1.isValid()){
+            System.out.println("Creating date on existing leap day. PASSED");
+        }
+        else{
+            System.out.println("Creating date on existing leap day. FAILED");
+        }
+        Date test5_case2=new Date("2/29/2009");
+        if (!test5_case2.isValid()){
+            System.out.println("Creating date on non-existing leap day. PASSED");
+        }
+        else{
+            System.out.println("Creating date on non-existing leap day. FAILED");
+        }
+        Date test5_case3=new Date("2/29/2000");
+        if (test5_case3.isValid()){
+            System.out.println("Test a leap year that is multiple of 100, but divisible by 400. PASSED");
+        }
+        else{
+            System.out.println("Test a leap year that is multiple of 100, but divisible by 400. FAILED");
+        }
+        Date test5_case4=new Date("2/29/1900");
+        if (!test5_case4.isValid()){
+            System.out.println("Test a leap year that that is multiple of 100, but not divisible by 400. PASSED");
+        }
+        else{
+            System.out.println("Test a leap year that that is multiple of 100, but not divisible by 400. FAILED");
+        }
+        Date test5_case5=new Date("2/29/1904");
+        if (test5_case5.isValid()){
+            System.out.println("Test a leap year after skipped leap year. PASSED");
+        }
+        else{
+            System.out.println("Test a leap year after skipped leap year. FAILED");
+        }
 
         //test 5, testing valid dates
         System.out.println("\nTest block 4, testing that isValid() also works for valid dates");
-        Date test6_case1 = new Date("1/15/1950");
-        System.out.println("is 1/15/1950 a valid date:" + test6_case1.isValid());
-        Date test6_case2 = new Date("10/31/1969");
-        System.out.println("is 10/31/1969 a valid date:" + test6_case2.isValid());
-        Date test6_case3 = new Date("4/20/1969");
-        System.out.println("is 4/20/1969 a valid date:" + test6_case3.isValid());
+        Date test6_case1=new Date("1/15/1950");
+        if (test6_case1.isValid()){
+            System.out.println("Testing Valid dates. PASSED");
+        }
+        else{
+            System.out.println("Testing Valid dates. FAILED");
+        }
+        Date test6_case2=new Date("10/31/1969");
+        if (test6_case2.isValid()){
+            System.out.println("Testing Valid dates. PASSED");
+        }
+        else{
+            System.out.println("Testing Valid dates. FAILED");
+        }
+        Date test6_case3=new Date("4/20/1969");
+        if (test6_case3.isValid()){
+            System.out.println("Testing Valid dates. PASSED");
+        }
+        else{
+            System.out.println("Testing Valid dates. FAILED");
+        }
     }
-    
-
 }
