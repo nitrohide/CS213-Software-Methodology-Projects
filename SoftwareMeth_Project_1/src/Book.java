@@ -1,11 +1,9 @@
 /**
  * This class defines type Book, which encapsulates the data fields and methods of a book.
  * Each book has private variables number, name, checkedOut, and datePublished
- * Books are uniquely identified by their number 
+ * Books are uniquely identified by their number
  * @author Anuraj Dubey, Chenghao Lin
  */
-
-
 public class Book {
     private String number; //a 5-digit serial number unique to the book
     private String name;
@@ -25,12 +23,10 @@ public class Book {
         this.checkedOut=false;
     }
 
-
     //Getter methods
-
     /**
      * This is a getter method to get the Book's number.
-     * @return the number value of the Book. 
+     * @return the number value of the Book.
      */
     public String getSerial() {
         return number;
@@ -38,7 +34,7 @@ public class Book {
 
     /**
      * This is a getter method to get the Book's name.
-     * @return the name value of the Book. 
+     * @return the name value of the Book.
      */
     public String getName() {
         return name;
@@ -46,7 +42,7 @@ public class Book {
 
     /**
      * This is a getter method to get the Book's checked-out status.
-     * @return the boolean value of the Book's checked-out status. 
+     * @return the boolean value of the Book's checked-out status.
      */
     public boolean getCheckedout() {
         return checkedOut;
@@ -54,7 +50,7 @@ public class Book {
 
     /**
      * This is a getter method to get the Book's published date.
-     * @return the published date value of the Book. 
+     * @return the published date value of the Book.
      */
     public Date getDatePublished() {
         return datePublished;
@@ -63,18 +59,16 @@ public class Book {
     //setter method
     /**
      * This method is a setter method to change the book's checked-out status.
-     * @param checkedOut
+     * @param checkedOut sets checkedOut value to true or false
      */
     public void setCheckedOut(boolean checkedOut) {
         this.checkedOut = checkedOut;
     }
-    
 
-    
     /**
-     * This method checks if the serial numbers for 2 book objects are the same. 
-     * @param obj 
-     * @return areEqual value (which is true or false based on the .equals() method), or just false if cannot confirm equality. 
+     * This method checks if the serial numbers for 2 book objects are the same.
+     * @param obj of type Book that is being compared to another book
+     * @return areEqual value (which is true or false based on the .equals() method), or just false if cannot confirm equality.
      */
     @Override
     public boolean equals(Object obj){
@@ -86,12 +80,10 @@ public class Book {
             return false;
         }
     }
-    
 
-    
     /**
-     * This method returns the textual representation of a Book that resides in the Library class' bag. 
-     * @return the formatted textual representation of a Book. 
+     * This method returns the textual representation of a Book that resides in the Library class' bag.
+     * @return the formatted textual representation of a Book.
      */
     @Override
     public String toString() {
