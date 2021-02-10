@@ -3,6 +3,9 @@ import java.util.StringTokenizer;
 import java.util.Scanner;
 
 /**
+ * The Date class handles the creation of Date objects and provides all values for said objects.
+ * Additionally, it holds the method, isValid(), which verifies the validity of a date represented by the Date object.
+ * Also, it holds a testbed main method to test a set of testcases to confirm the competency of isValid(). 
  * @author Anuraj Dubey, Chenghao Lin
  * 
  */
