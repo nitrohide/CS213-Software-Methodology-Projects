@@ -1,9 +1,11 @@
 /**
  * This class defines type Book, which encapsulates the data fields and methods of a book.
  * Each book has private variables number, name, checkedOut, and datePublished
- * Books are uniquely identified by their number
+ * Books are uniquely identified by their number 
  * @author Anuraj Dubey, Chenghao Lin
  */
+
+
 public class Book {
     private String number; //a 5-digit serial number unique to the book
     private String name;
@@ -11,39 +13,69 @@ public class Book {
     private Date datePublished;
 
     /**
-     * Constructor for Book object which will always have a serial number, name, and publishing date, Books are not checked out by default.
+     * Constructor for Book object which will always have a serial number, name, and publishing date. Books are not checked out by default.
      * @param number The unique Serial Number of the book
      * @param name   The title of the book
      * @param datePublished The publishing date of the book in MM/DD/YYYY format
      */
-    public Book(String number, String name, Date datePublished) {
-        this.number =  number;
-        this.name = name;
-        this.datePublished = datePublished;
-        this.checkedOut = false;
+    public Book(String number, String name, Date datePublished){
+        this.number=number;
+        this.name=name;
+        this.datePublished=datePublished;
+        this.checkedOut=false;
     }
 
 
     //Getter methods
+
+    /**
+     * This is a getter method to get the Book's number.
+     * @return the number value of the Book. 
+     */
     public String getSerial() {
         return number;
     }
+
+    /**
+     * This is a getter method to get the Book's name.
+     * @return the name value of the Book. 
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * This is a getter method to get the Book's checked-out status.
+     * @return the boolean value of the Book's checked-out status. 
+     */
     public boolean getCheckedout() {
         return checkedOut;
     }
+
+    /**
+     * This is a getter method to get the Book's published date.
+     * @return the published date value of the Book. 
+     */
     public Date getDatePublished() {
         return datePublished;
     }
 
-    //setter methods
+    //setter method
+    /**
+     * This method is a setter method to change the book's checked-out status.
+     * @param checkedOut
+     */
     public void setCheckedOut(boolean checkedOut) {
         this.checkedOut = checkedOut;
     }
+    
 
-    ////equals() method returns true if the serial numbers for the 2 book objects are the same.
+    
+    /**
+     * This method checks if the serial numbers for 2 book objects are the same. 
+     * @param obj 
+     * @return areEqual value (which is true or false based on the .equals() method), or just false if cannot confirm equality. 
+     */
     @Override
     public boolean equals(Object obj){
         if(obj instanceof Book){
@@ -54,8 +86,13 @@ public class Book {
             return false;
         }
     }
+    
 
-    //toString() method returns a textual representation of a book in the following format.
+    
+    /**
+     * This method returns the textual representation of a Book that resides in the Library class' bag. 
+     * @return the formatted textual representation of a Book. 
+     */
     @Override
     public String toString() {
         String dateStr=datePublished.toString();
