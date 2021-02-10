@@ -3,8 +3,8 @@ import java.util.StringTokenizer;
 import java.util.Scanner;
 
 /**
- * @author Anuraj Dubey
- * @author X
+ * @author Anuraj Dubey, Chenghao Lin
+ * 
  */
 
 public class Date {
