@@ -1,50 +1,62 @@
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
- /**
- a
- */
+/**
+ * The kiosk class processes command lines from the console using Scanner and String Tokenizer class.
+ * The user can interact with the Library bag from the Kiosk class
+ * @author Anuraj Dubey, Chenghao Lin
+*/
 
 public class Kiosk {
-    final int STARTING_SERIAL = 10001;
-    final int ADD_ARGS = 3;
-    final int MOD_ARGS = 2;
-    final int DISPLAY_ARGS = 1;
+    final int STARTING_SERIAL = 10001; //The first serial number available
+    final int ADD_ARGS = 3;            //The required number of arguments to add a book
+    final int MOD_ARGS = 2;            //The required number of arguments to remove,checkout,return a book
+    final int DISPLAY_ARGS = 1;        //The required number of arguments to print the library, or quit
+
+    /**
+     * Initiates interface and displays status messages as inputs are scanned
+     * Session runs indefinitely until command Q is inputted
+     */
     public void run() {
 
+        //setting up variables, creating Library object to be used in this session
         Library Library = new Library();
         System.out.println("Library Kiosk running");
         boolean kioskStatus = true;
         int serialNumber = STARTING_SERIAL;
         Scanner scanner = new Scanner(System.in);
 
-        while (kioskStatus == true && scanner.hasNext()){
+        while (kioskStatus == true && scanner.hasNext()){ //will keep running until command Q is inputted
             String nextLine = scanner.nextLine();
-            if (nextLine.equals("")){
+            if (nextLine.equals("")){                     //To prevent String Tokenizer class error
                 nextLine=" ";
             }
             StringTokenizer tokens = new StringTokenizer(nextLine,",");
 
-
-            int numArgs = tokens.countTokens(); //use this later to maybe test invalid input
-            String command = tokens.nextToken(); //the command flag, first parameter
+            int numArgs = tokens.countTokens();
+            String command = tokens.nextToken();          //the command flag, first parameter
 
             switch(command){
-                case "Q":
-                    kioskStatus = false;
-                    break;
+                case "Q":                                 //Q command terminates the program
+                    if (numArgs == DISPLAY_ARGS) {        //compare number of inputted arguments with required arguments
+                        kioskStatus = false;
+                        break;
+                    }
+                    else{
+                        System.out.println("Invalid Command!");
+                    }
 
-                case "A":
-                    if (numArgs == ADD_ARGS){ //need all 3 arguments to add a book IS THIS A MAGIC NUMBER?
-                        String number = String.valueOf(serialNumber); //the next available serial number
-                        String name = tokens.nextToken(); //name of book
-                        String datePublished = tokens.nextToken(); //date published of book
-                        Date date = new Date(datePublished); //need to create Date object to insert into book
+                case "A":                     //A command adds another book into the library
+                    if (numArgs == ADD_ARGS){
+                        String number = String.valueOf(serialNumber);
+                        String name = tokens.nextToken();
+                        String datePublished = tokens.nextToken();
+                        Date date = new Date(datePublished);
                         if (date.isValid()) {
-                            Book newBook = new Book(number, name, date ); //new book added
-                            Library.add(newBook); //adding book to the library
+                            Book newBook = new Book(number, name, date );
+                            Library.add(newBook);
                             System.out.println(name + " added to the Library");
-                            serialNumber++; //increment serial number for next book
+                            serialNumber++;
                         }
                         else{
                             System.out.println("Invalid Date!");
@@ -54,8 +66,9 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                case "R":
-                    if (numArgs == MOD_ARGS){ //need 2 arguments to remove a book, (R,serialnumber) IS THIS A MAGIC NUMBER?
+
+                case "R":                     //R command removes a book from the library
+                    if (numArgs == MOD_ARGS){
                         String numberStr = tokens.nextToken();
                         int bookNumber = Integer.parseInt(numberStr);
                         Book Book = Library.search(bookNumber);
@@ -71,7 +84,8 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                case "O":
+
+                case "O":                      //O command checks out a book from the Library
                     if (numArgs == MOD_ARGS) {
                         String numberStr = tokens.nextToken();
                         int bookNumber = Integer.parseInt(numberStr);
@@ -89,7 +103,8 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                case "I":
+
+                case "I":                     //I command returns a book into the Library
                     if (numArgs == MOD_ARGS){
                         String numberStr = tokens.nextToken();
                         int bookNumber = Integer.parseInt(numberStr);
@@ -107,7 +122,8 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                case "PA":
+
+                case "PA":         //outputs the list of books to the console with the current sequence
                     if (numArgs == DISPLAY_ARGS){
                         if(Library.getNumBooks() == 0){
                             System.out.println("Library catalog is empty!");
@@ -122,7 +138,8 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                case "PD":
+
+                case "PD":         //output the list of books by the dates published in ascending order
                     if (numArgs == DISPLAY_ARGS){
                         if(Library.getNumBooks() == 0){
                             System.out.println("Library catalog is empty!");
@@ -137,7 +154,8 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                case "PN":
+
+                case "PN":        //output the list of books by the book numbers in ascending order
                     if (numArgs == DISPLAY_ARGS){
                         if(Library.getNumBooks() == 0){
                             System.out.println("Library catalog is empty!");
@@ -152,9 +170,11 @@ public class Kiosk {
                         System.out.println("Invalid command!");
                     }
                     break;
-                case " ":
+                    
+                case " ":         //passes the empty input values
                     break;
-                default:
+                    
+                default:          //any other command that is not a case passes through here
                     System.out.println("Invalid command!");
             }
         }
