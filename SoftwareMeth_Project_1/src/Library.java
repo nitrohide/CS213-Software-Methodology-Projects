@@ -3,8 +3,6 @@
  * It holds multiple methods that revolve around maintaining and manipulating this bag in order to serve as an effective library.
  * @author Anuraj Dubey, Chenghao Lin 
  */
-
-
 public class Library {
     private Book[] books; // array-based implementation of the bag data structure private int numBooks;
     private int numBooks; // the number of books currently in the bag
@@ -82,7 +80,7 @@ public class Library {
             if ( books[j+1] == null){ //make last element in list null to accomodate for removed book
                 books[j] = null;
                 numBooks--;
-                return true; //also displays “Book# xyz removed.”
+                return true; //also displays 'Book# xyz removed.'
             }
             books[j] = books[j + 1]; //set each element to value of next to preserve order of books
         }
