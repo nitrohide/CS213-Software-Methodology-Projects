@@ -1,17 +1,15 @@
 import java.util.Calendar;
 import java.util.StringTokenizer;
-import java.util.Scanner;
 
 /**
  * The Date class handles the creation of Date objects and provides all values for said objects.
  * Additionally, it holds the method, isValid(), which verifies the validity of a date represented by the Date object.
- * Also, it holds a testbed main method to test a set of testcases to confirm the competency of isValid(). 
+ * Also, it holds a testbed main method to test a set of testcases to confirm the competency of isValid().
  * @author Anuraj Dubey, Chenghao Lin
- * 
+ *
  */
-
 public class Date {
-    
+
     private int year;
     private int month;
     private int day;
@@ -37,43 +35,36 @@ public class Date {
     public static final int LEAP_DAY = 29;
     public static final int DAY_30 = 30;
     public static final int DAY_31 = 31;
- 
 
-    
     /**
      * This method creates a Date object by using an input of a String (date) of the format mm/dd/yyyy.
-     * @param date
+     * @param date in MM/DD/YYYY format to be tokenized
      */
     public Date(String date) {  //taking mm/dd/yyyy and create a Date object
-
-        
         StringTokenizer str = new StringTokenizer(date,"/", false);  //create StringTokenizer object
 
-        this.month = Integer.parseInt(str.nextToken()); 
-        this.day = Integer.parseInt(str.nextToken()); 
-        this.year = Integer.parseInt(str.nextToken()); 
-
+        this.month = Integer.parseInt(str.nextToken());
+        this.day = Integer.parseInt(str.nextToken());
+        this.year = Integer.parseInt(str.nextToken());
     }
 
     /**
-     * This method creates an object of the current date today.  
+     * This method creates an object of the current date today.
      */
     public Date() {  //create an object with today’s date (see Calendar class)
 
-        Calendar currDate = Calendar.getInstance(); 
-        
-        this.day = currDate.get(Calendar.DAY_OF_MONTH);  
-        this.year = currDate.get(Calendar.YEAR);  
+        Calendar currDate = Calendar.getInstance();
+
+        this.day = currDate.get(Calendar.DAY_OF_MONTH);
+        this.year = currDate.get(Calendar.YEAR);
         this.month = currDate.get(Calendar.MONTH) + 1;   // IS THIS MAGIC NUMBER???
 
-        
+
     }
 
-
     //getter methods
-
     /**
-     * A method to get the month value of the object. 
+     * A method to get the month value of the object.
      * @return the month value of the object
      */
     public int getMonth(){
@@ -81,7 +72,7 @@ public class Date {
     }
 
     /**
-     * A method to get the day value of the object. 
+     * A method to get the day value of the object.
      * @return the day value of the object
      */
     public int getDay(){
@@ -89,95 +80,91 @@ public class Date {
     }
 
     /**
-     * A method to get the year value of the object. 
+     * A method to get the year value of the object.
      * @return the year value of the object
      */
     public int getYear(){
-        return year; 
+        return year;
     }
 
-
     /**
-     * This method checks a Date object, and confirms if it is indeed a valid date of publishment, based on sensible criteria. 
-     * @return True if the date is valid, or false if the date is invalid. 
+     * This method checks a Date object, and confirms if it is indeed a valid date of publishment, based on sensible criteria.
+     * @return True if the date is valid, or false if the date is invalid.
      */
-    public boolean isValid() { 
+    public boolean isValid() {
 
         Calendar currDate = Calendar.getInstance();
 
         if (this.year <= 0 || this.day <= 0 || this.month <= 0) //check if day, month, year is a negative value or 0
-            return false; 
+            return false;
         if (this.month > DECEMBER) //check if month value exceeds the max month of December (12)
             return false;
-       if ( this.year < YEAR_1900 || this.year > CURRENT_YEAR) //check if year exceeds current year, or if year preceeds 1900
+        if ( this.year < YEAR_1900 || this.year > CURRENT_YEAR) //check if year exceeds current year, or if year preceeds 1900
             return false;
-        if ( this.year == CURRENT_YEAR){ //if year value is of our current year 
+        if ( this.year == CURRENT_YEAR){ //if year value is of our current year
             if (this.month > (currDate.get(Calendar.MONTH) + 1)){ //if month value exceeds current month, invalid date
-                return false; 
+                return false;
             }
-            if (this.month == (currDate.get(Calendar.MONTH) + 1)){ //if month value is current month 
+            if (this.month == (currDate.get(Calendar.MONTH) + 1)){ //if month value is current month
                 if (this.day > currDate.get(Calendar.DAY_OF_MONTH)) //if day value is greater than current day, invalid date
-                    return false; 
-                
+                    return false;
+
             }
         }
-        
-        
-        
+
         if (this.month == JANUARY && this.day > DAY_31) //check if day in January is invalid
-            return false; 
+            return false;
 
         if ( this.month == FEBRUARY){
             if (this.day > LEAP_DAY) return false; //if day in February is more than 29, return false
-            
+
             if (this.day == LEAP_DAY){
                 if (!(this.year%QUADRENNIAL == 0)) //if year is not divisible by 4, return false
-                    return false; 
-                else if (this.year%CENTENNIAL == 0){ //if year is divisible by 4 and divisible by 100... 
+                    return false;
+                else if (this.year%CENTENNIAL == 0){ //if year is divisible by 4 and divisible by 100...
                     if (!(this.year%QUARTERCENTENNIAL == 0)) //if year is divisible by 4 and 100, but not 400, return false
-                        return false; 
-                }                  
-            }   
+                        return false;
+                }
+            }
         }
 
         if (this.month == MARCH && this.day > DAY_31) //check if day in March is invalid
-            return false; 
+            return false;
 
         if (this.month == APRIL && this.day > DAY_30) //check if day in April is invalid
-            return false; 
+            return false;
 
         if (this.month == MAY && this.day > DAY_31) //check if day in May is invalid
-            return false; 
+            return false;
 
         if (this.month == JUNE && this.day > DAY_30) //check if day in June is invalid
-            return false; 
+            return false;
 
         if (this.month == JULY && this.day > DAY_31) //check if day in July is invalid
-            return false; 
+            return false;
 
         if (this.month == AUGUST && this.day > DAY_31) //check if day in August is invalid
-            return false; 
+            return false;
 
         if (this.month == SEPTEMBER && this.day > DAY_30) //check if day in September is invalid
-            return false; 
+            return false;
 
         if (this.month == OCTOBER && this.day > DAY_31) //check if day in October is invalid
-            return false; 
+            return false;
 
         if (this.month == NOVEMBER && this.day > DAY_30) //check if day in November is invalid
-            return false; 
-        
+            return false;
+
         if (this.month == DECEMBER && this.day > DAY_31) //check if day in December is invalid
-            return false; 
+            return false;
 
         return true; //if all conditions are passed, date is valid
-    }   
-
-
+    }
+    
     /**
-     * 
+     *
      * @param args
-     * This is a main method, which is used to execute a given set of Date testcases in order to test the validity of these Dates. 
+     * This is a main method, which is used to execute a given set of Date testcases in order to test the validity of these Dates.
      */
     public static void main(String[] args){ //testbed main for isValid()
         System.out.println("Testbed main running");
