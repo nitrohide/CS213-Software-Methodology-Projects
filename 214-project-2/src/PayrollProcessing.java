@@ -114,14 +114,18 @@ public class PayrollProcessing {
                     }
 
                 case "R":
+                    if (Company.getNumEmployee() == 0) {
+                        System.out.println("Employee database is empty.");
+                        break;
+                    }
                     if (numArgs == REMOVE_ARGS) {
                         name = tokens.nextToken();
                         department = tokens.nextToken();
                         Date date = new Date(tokens.nextToken());
 
                         Employee removeEmployee = Company.search(name, department, date);
-                        boolean isRemoved = Company.remove(removeEmployee);
 
+                        boolean isRemoved = Company.remove(removeEmployee);
                         if (!isRemoved) {
                             System.out.println("Employee doesn't exist.");
                         } else {
@@ -132,6 +136,10 @@ public class PayrollProcessing {
                     }
                     break;
                 case "C":
+                    if (Company.getNumEmployee() == 0) {
+                        System.out.println("Employee database is empty.");
+                        break;
+                    }
                     if (numArgs == DISPLAY_ARGS) {
                         System.out.println("Calculation of employee payments is done");
                         Company.processPayments();
@@ -140,11 +148,16 @@ public class PayrollProcessing {
                     }
                     break;
                 case "S":
+                    if (Company.getNumEmployee() == 0) {
+                        System.out.println("Employee database is empty.");
+                        break;
+                    }
                     if (numArgs == NONMANAGEMENT_ARGS) {
                         name = tokens.nextToken();
                         department = tokens.nextToken();
                         Date date = new Date(tokens.nextToken());
                         int hours = Integer.parseInt(tokens.nextToken());
+
 
                         if (hours < MINIMUM_HOURS) {
                             System.out.println("Working hours cannot be negative.");
@@ -217,7 +230,7 @@ public class PayrollProcessing {
                     break;
 
                 default:
-                    System.out.println("Command " + command + " not supported!");
+                    System.out.println("Command '" + command + "' not supported!");
             }
         }
         System.out.println("Payroll Processing completed.");
