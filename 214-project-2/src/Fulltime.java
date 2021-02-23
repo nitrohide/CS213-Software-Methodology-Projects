@@ -14,18 +14,21 @@ public class Fulltime extends Employee{
     }
 
     @Override
-    public String toString() { }
+    public String toString() {
+        String formattedSalary = String.format("%,.2f", this.yearlySalary);
+        return super.toString() + "FULL TIME::Annual Salary $" + formattedSalary;
+    }
     @Override
-    public boolean equals(Object obj) { 
+    public boolean equals(Object obj) {
 
         if (obj instanceof Employee){
             Fulltime otherFulltime = (Fulltime) obj;
             if (!(otherFulltime.yearlySalary == this.yearlySalary)){
-                return false; 
+                return false;
             }
         }
-        return true; 
-    } 
+        return true;
+    }
 
     public double getSalary(){
         return yearlySalary;
