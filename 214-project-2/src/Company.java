@@ -3,9 +3,10 @@ public class Company {
     private int numEmployee;
 
     public Company(){//constructor to create empty container for employee list
-        emplist = new Employee[4]; 
+        emplist = new Employee[BAG_INITIAL_VALUE]; 
     }
-
+    
+    public static final int BAG_INITIAL_VALUE = 4;
     public static final int BAG_GROW_VALUE = 4;
     public static final int NOT_FOUND = -1;
 
