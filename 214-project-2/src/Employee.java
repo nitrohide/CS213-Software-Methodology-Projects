@@ -38,8 +38,23 @@ public class Employee {
         String payment = String.format("%,.2f", this.getPayment());
         return profile.toString() + "::Payment $" + payment + "::";
     }
+    
     @Override
     public boolean equals(Object obj) {
 
-    } //compare name, department and dateHired
+        if (obj instanceof Employee){
+            Employee otherEmployee = (Employee) obj;
+            if (!otherEmployee.profile.equals(this.profile)){
+                return false; 
+            }
+            if (!(otherEmployee.hoursWorked == this.hoursWorked)) {
+                return false; 
+            }
+            if (!(otherEmployee.payment == this.payment)){
+                return false; 
+            }
+            
+        }
+        return true; 
+    } 
 }
