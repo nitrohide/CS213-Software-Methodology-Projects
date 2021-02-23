@@ -12,34 +12,35 @@ public class Management extends Fulltime{
     public Management(String name, String department, Date dateHired, double yearlySalary, int role){
         super(name,department,dateHired, yearlySalary);
         this.role = role;
+
+        double payment = getSalary()/26;
+        if (this.role == MANAGER){
+            payment = MANAGER_COMPENSATION + payment;
+            this.role_name = "Manager";
+            this.compensation = MANAGER_COMPENSATION/PAYPERIODS;
+        }
+        else if (this.role == DEPARTMENT_HEAD){
+            payment = DEPARTMENT_HEAD_COMPENSATION + payment;
+            this.role_name = "Department Head";
+            this.compensation = DEPARTMENT_HEAD_COMPENSATION/PAYPERIODS;
+        }
+        else if (this.role == DIRECTOR){
+            payment = DIRECTOR_COMPENSATION + payment;
+            this.role_name = "Director";
+            this.compensation = DIRECTOR_COMPENSATION/PAYPERIODS;
+        }
+        super.setPayment(payment);
     }
 
     @Override
     public void calculatePayment() {
-        double payment = getSalary()/26;
-        if (this.role == MANAGER){
-            payment = MANAGER_COMPENSATION + payment;
-            role_name = "Manager";
-            compensation = MANAGER_COMPENSATION/PAYPERIODS;
-        }
-        else if (this.role == DEPARTMENT_HEAD){
-            payment = DEPARTMENT_HEAD_COMPENSATION + payment;
-            role_name = "Department Head";
-            compensation = DEPARTMENT_HEAD_COMPENSATION/PAYPERIODS;
-        }
-        else if (this.role == DIRECTOR){
-            payment = DIRECTOR_COMPENSATION + payment;
-            role_name = "Director";
-            compensation = DIRECTOR_COMPENSATION/PAYPERIODS;
-        }
-        super.setPayment(payment);
-
+        super.calculatePayment();
     }
 
     @Override
     public String toString() {
-        String formattedCompensation = String.format("%,.2f", compensation);
-        return super.toString() + "::" + role_name + " Compensation $"
+        String formattedCompensation = String.format("%,.2f", this.compensation);
+        return super.toString() + "::" + this.role_name + " Compensation $"
                 + formattedCompensation;
     }
     @Override
