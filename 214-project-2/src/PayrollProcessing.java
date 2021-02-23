@@ -144,12 +144,12 @@ public class PayrollProcessing {
                         name = tokens.nextToken();
                         department = tokens.nextToken();
                         Date date = new Date(tokens.nextToken());
-                        int Hours = Integer.parseInt(tokens.nextToken());
+                        int hours = Integer.parseInt(tokens.nextToken());
 
-                        if (Hours < MINIMUM_HOURS) {
+                        if (hours < MINIMUM_HOURS) {
                             System.out.println("Working hours cannot be negative.");
                         }
-                        if (Hours > MAXIMUM_HOURS) {
+                        if (hours > MAXIMUM_HOURS) {
                             System.out.println("Invalid Hours: over 100.");
                         } else {
                             Employee setEmployee = Company.search(name, department, date);
@@ -158,7 +158,8 @@ public class PayrollProcessing {
                             } else if (!Company.setHours(setEmployee)) {
                                 System.out.println("Employee is not part-time");
                             } else {
-                                Company.setHours(setEmployee); //DOES THIS SET HOURS?
+                                Parttime employee = (Parttime)setEmployee;
+                                employee.setHoursWorked(hours);
                                 System.out.println("Working hours set.");
                             }
                         }
@@ -188,7 +189,7 @@ public class PayrollProcessing {
                             System.out.println("Employee database is empty.");
                         }
                         else{
-                            System.out.println("--Printing earning statements for all employees--");
+                            System.out.println("--Printing earning statements by date hired--");
                             Company.printByDate();
                         }
                     }
@@ -203,7 +204,7 @@ public class PayrollProcessing {
                             System.out.println("Employee database is empty.");
                         }
                         else{
-                            System.out.println("--Printing earning statements for all employees--");
+                            System.out.println("--Printing earning statements by department--");
                             Company.printByDepartment();
                         }
                     }
