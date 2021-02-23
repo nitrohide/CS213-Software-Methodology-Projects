@@ -183,4 +183,8 @@ public class Date implements Comparable<Date> {
         }
         return -1;
     } //return 1, 0, or -1
+    
+    public String toString(){
+        return (month + "/" + day + "/" + year);
+    }
 }
