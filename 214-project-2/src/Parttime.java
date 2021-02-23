@@ -1,6 +1,6 @@
 public class Parttime extends Employee{
     final int MAXIMUM_HOURS = 100;
-    final int WEEKLY_MAX = 40;
+    final int PAY_PERIOD_MAX = 80;
     final double OVERTIME_RATE = 1.5;
 
     private int hoursWorked;
@@ -12,11 +12,25 @@ public class Parttime extends Employee{
     }
 
     @Override
-    public void calculatePayment() { }
+    public void calculatePayment() {
+        double payment;
+        if (this.hoursWorked <= PAY_PERIOD_MAX) {  //if hoursworked did not exceed normal hours
+            payment = this.hourlyRate * this.hoursWorked;
+        }
+        else {
+            int overtimeHours = MAXIMUM_HOURS - this.hoursWorked;
+            payment = (this.hourlyRate * PAY_PERIOD_MAX) + (overtimeHours * OVERTIME_RATE * this.hourlyRate);
+        }
+        super.setPayment(payment);
+    }
 
     @Override
     public String toString() { }
     @Override
     public boolean equals(Object obj) { } //compare name, department and dateHired
+
+    public void setHoursWorked(int hoursWorked) {
+        this.hoursWorked = hoursWorked;
+    }
 
 }
