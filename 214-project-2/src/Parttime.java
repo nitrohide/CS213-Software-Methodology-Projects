@@ -25,22 +25,27 @@ public class Parttime extends Employee{
     }
 
     @Override
-    public String toString() { }
+    public String toString() {
+        String formattedRate = String.format("%,.2f", this.hourlyRate);
+        return super.toString() + "PART TIME::Hourly Rate $" + formattedRate + "::"
+                + "Hours worked this period: " + this.hoursWorked;
+    }
+
     @Override
-    public boolean equals(Object obj) { 
+    public boolean equals(Object obj) {
 
         if (obj instanceof Employee){
             Parttime otherParttime = (Parttime) obj;
             if (!(otherParttime.hoursWorked == this.hoursWorked)){
-                return false; 
+                return false;
             }
             if (!(otherParttime.hourlyRate == this.hourlyRate)) {
-                return false; 
+                return false;
             }
-            
+
         }
-        return true; 
-    } 
+        return true;
+    }
 
     public void setHoursWorked(int hoursWorked) {
         this.hoursWorked = hoursWorked;
