@@ -5,4 +5,12 @@ public class Fulltime extends Employee{
         super(name,department,dateHired);
         this.yearlySalary = yearlySalary;
     }
+
+    @Override
+    public void calculatePayment() { }
+
+    @Override
+    public String toString() { }
+    @Override
+    public boolean equals(Object obj) { } //compare name, department and dateHired
 }
