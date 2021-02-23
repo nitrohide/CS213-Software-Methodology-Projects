@@ -158,4 +158,19 @@ public class Company {
         print(); //print the sorted bag
 
     }
+    public Employee search(String name, String department, Date dateHired){
+        Employee tempEmployee = new Employee(name,department,dateHired);
+        int location = find(tempEmployee);
+        if (location != EMPLOYEE_NOT_FOUND){
+            return emplist[location];
+        }
+        else{
+            return null;
+        }
+    }
+
+    public int getNumEmployee(){
+        return numEmployee;
+    }
+    
 }
