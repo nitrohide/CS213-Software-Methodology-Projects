@@ -11,7 +11,9 @@ public class Profile {
 
 
     @Override
-    public String toString() { }
+    public String toString() {
+        return name + "::" + department + "::" + dateHired.toString();
+    }
     @Override
     public boolean equals(Object obj) { } //compare name, department and dateHired
 }
