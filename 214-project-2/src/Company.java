@@ -87,7 +87,7 @@ public class Company {
     public void processPayments() { //process payments for all employees
         
         for(int i = 0; i < emplist.length; i++){    
-            calculatePayment(); 
+            emplist[i].calculatePayment(); 
         }
 
     }
@@ -162,7 +162,7 @@ public class Company {
     public Employee search(String name, String department, Date dateHired){
         Employee tempEmployee = new Employee(name,department,dateHired);
         int location = find(tempEmployee);
-        if (location != EMPLOYEE_NOT_FOUND){
+        if (location != NOT_FOUND){
             return emplist[location];
         }
         else{
