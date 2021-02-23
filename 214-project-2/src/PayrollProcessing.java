@@ -105,8 +105,8 @@ public class PayrollProcessing {
                         } else if (!isValidManager(role)) {
                             System.out.println("Invalid management code.");
                         } else {
-                            Fulltime newFulltime = new Fulltime(name, department, date, yearlySalary);
-                            Company.add(newFulltime);
+                            Management Management = new Management(name, department, date, yearlySalary, Integer.parseInt(role));
+                            Company.add(Management);
                             System.out.println("Employee added.");
                         }
                     } else {
