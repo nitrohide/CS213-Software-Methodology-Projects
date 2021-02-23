@@ -5,4 +5,8 @@ public class Employee {
         profile = new Profile(name,department,dateHired);
 
     }
+    @Override
+    public String toString() { }
+    @Override
+    public boolean equals(Object obj) { } //compare name, department and dateHired
 }
