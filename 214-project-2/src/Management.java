@@ -35,5 +35,18 @@ public class Management extends Fulltime{
     @Override
     public String toString() { }
     @Override
-    public boolean equals(Object obj) { } //compare name, department and dateHired
+    public boolean equals(Object obj) {  
+    
+        if (obj instanceof Management){
+            Management otherManagement = (Management) obj;
+            if (!(otherManagement.role == this.role)){
+                return false; 
+            }
+            if (!(otherManagement.role_name == this.role_name)) {
+                return false; 
+            }
+            
+        }
+        return true; 
+    }
 }
