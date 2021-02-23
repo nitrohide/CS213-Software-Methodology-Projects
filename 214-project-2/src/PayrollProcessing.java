@@ -31,11 +31,7 @@ public class PayrollProcessing {
 
             String name;
             String department;
-            String dateHired;
-            String salary;
             String role;
-
-
 
             switch (command) {
                 case "Q":
@@ -60,7 +56,7 @@ public class PayrollProcessing {
                         } else if (!date.isValid()) {
                             System.out.println("Invalid Date!");
                         } else {
-                            Parttime newParttime = new Parttime(name, department, date, hourlyRate);
+                            Parttime newParttime = new Parttime(name, department, date, hourlyRate, MINIMUM_HOURS);
                             Company.add(newParttime);
                             System.out.println("Employee added.");
                         }
@@ -123,7 +119,7 @@ public class PayrollProcessing {
                         department = tokens.nextToken();
                         Date date = new Date(tokens.nextToken());
 
-                        Employee removeEmployee = new Employee(name, department, date);
+                        Employee removeEmployee = Company.search(name, department, date);
                         boolean isRemoved = Company.remove(removeEmployee);
 
                         if (!isRemoved) {
