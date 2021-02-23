@@ -20,5 +20,20 @@ public class Profile {
     @Override
     public String toString() { }
     @Override
-    public boolean equals(Object obj) {}  //compare name, department and dateHired
+    public boolean equals(Object obj) {  //compare name, department and dateHired
+        
+        if (obj instanceof Profile){
+            Profile otherProfile = (Profile) obj; 
+            if (!otherProfile.name.equals(this.name)){
+                return false;
+            }
+            if (!otherProfile.department.equals(this.department)){
+                return false;
+            }
+            if (!otherProfile.dateHired.equals(this.dateHired)){
+                return false;
+            }
+        }
+        return true; 
+    }
 }
