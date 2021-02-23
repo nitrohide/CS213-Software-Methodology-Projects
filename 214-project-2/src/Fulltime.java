@@ -16,7 +16,16 @@ public class Fulltime extends Employee{
     @Override
     public String toString() { }
     @Override
-    public boolean equals(Object obj) { } //compare name, department and dateHired
+    public boolean equals(Object obj) { 
+
+        if (obj instanceof Employee){
+            Fulltime otherFulltime = (Fulltime) obj;
+            if (!(otherFulltime.yearlySalary == this.yearlySalary)){
+                return false; 
+            }
+        }
+        return true; 
+    } 
 
     public double getSalary(){
         return yearlySalary;
