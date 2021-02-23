@@ -11,19 +11,22 @@ public class Profile {
     }
 
     public String getDepartment(){
-        return department; 
+        return department;
     }
     public Date getDateHired(){
-        return dateHired; 
+        return dateHired;
     }
 
     @Override
-    public String toString() { }
+    public String toString() {
+        return this.name + "::" + this.department + "::" + this.dateHired.toString();
+    }
+
     @Override
     public boolean equals(Object obj) {  //compare name, department and dateHired
-        
+
         if (obj instanceof Profile){
-            Profile otherProfile = (Profile) obj; 
+            Profile otherProfile = (Profile) obj;
             if (!otherProfile.name.equals(this.name)){
                 return false;
             }
@@ -34,6 +37,6 @@ public class Profile {
                 return false;
             }
         }
-        return true; 
+        return true;
     }
 }
