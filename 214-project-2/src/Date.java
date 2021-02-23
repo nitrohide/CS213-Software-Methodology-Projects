@@ -154,9 +154,33 @@ public class Date implements Comparable<Date> {
     }
 
 
-
+    /**
+     *
+     * @param date object being compared
+     * @return 0 if compared dates are equal, 1 if input year is less than instance, -1 if input year is greater than instance
+     */
     @Override
     public int compareTo(Date date) {
+        int inputMonth = date.getMonth();
+        int inputDay = date.getDay();
+        int inputYear = date.getYear();
 
+        if (inputYear == this.year && inputDay == this.day && inputMonth == this.month){
+            return 0;
+        }
+        else if (this.year > inputYear ){
+            return 1;
+        }
+        else if (this.year == inputYear) {
+            if (this.month > inputMonth) {
+                return 1;
+            }
+            if (this.month == inputMonth) {
+                if (this.day == inputDay) {
+                    return 1;
+                }
+            }
+        }
+        return -1;
     } //return 1, 0, or -1
 }
