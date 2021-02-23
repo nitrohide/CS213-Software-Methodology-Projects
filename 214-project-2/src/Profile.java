@@ -3,17 +3,22 @@ public class Profile {
     private String department; //department code: CS, ECE, IT
     private Date dateHired;
 
+
     public Profile(String name, String department, Date dateHired){
         this.name = name;
         this.department = department;
         this.dateHired = dateHired;
     }
 
+    public String getDepartment(){
+        return department; 
+    }
+    public Date getDateHired(){
+        return dateHired; 
+    }
 
     @Override
-    public String toString() {
-        return name + "::" + department + "::" + dateHired.toString();
-    }
+    public String toString() { }
     @Override
-    public boolean equals(Object obj) { } //compare name, department and dateHired
+    public boolean equals(Object obj) {}  //compare name, department and dateHired
 }
