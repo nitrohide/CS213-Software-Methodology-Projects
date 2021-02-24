@@ -1,3 +1,7 @@
+/**
+ * This is a class to create a Part-time Employee. It inherits from the Employee class.
+ * @author Anuraj Dubey, Chenghao Lin 
+ */
 public class Parttime extends Employee{
     final int MAXIMUM_HOURS = 100;
     final int PAY_PERIOD_MAX = 80;
@@ -6,11 +10,22 @@ public class Parttime extends Employee{
     private int hoursWorked;
     private double hourlyRate;
 
+    /**
+     * Constructor to create a parttime object. 
+     * @param name The name of the parttimer.
+     * @param department Department of the parttimer 
+     * @param dateHired The date hired.
+     * @param hourlyRate The hourly wage of the parttimer. 
+     * @param hoursWorked The number of hours worked by the parttimer.
+     */
     public Parttime(String name, String department, Date dateHired, double hourlyRate, int hoursWorked){
         super(name,department,dateHired);
         this.hourlyRate = hourlyRate;
     }
 
+    /**
+     * Method that calculates payment due for each Part-timer. 
+     */
     @Override
     public void calculatePayment() {
         double payment;
@@ -24,6 +39,10 @@ public class Parttime extends Employee{
         super.setPayment(payment);
     }
 
+    /**
+     * This is a method that takes a Parttime object and amends it to a string format for printing.
+     * @return The string formatted Parttime object.
+     */
     @Override
     public String toString() {
         String formattedRate = String.format("%,.2f", this.hourlyRate);
@@ -31,6 +50,10 @@ public class Parttime extends Employee{
                 + "Hours worked this period: " + this.hoursWorked;
     }
 
+    /**
+     * This method checks if a PartTime object is equal to another one.
+     * @return True if equal, false if not. 
+     */
     @Override
     public boolean equals(Object obj) {
 
@@ -47,6 +70,9 @@ public class Parttime extends Employee{
         return true;
     }
 
+    /**
+     * Setter method to set the hours worked for a parttimer. 
+     */
     public void setHoursWorked(int hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
