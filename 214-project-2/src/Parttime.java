@@ -18,7 +18,7 @@ public class Parttime extends Employee{
             payment = this.hourlyRate * this.hoursWorked;
         }
         else {
-            int overtimeHours = MAXIMUM_HOURS - this.hoursWorked;
+            int overtimeHours = this.hoursWorked - PAY_PERIOD_MAX;
             payment = (this.hourlyRate * PAY_PERIOD_MAX) + (overtimeHours * OVERTIME_RATE * this.hourlyRate);
         }
         super.setPayment(payment);
