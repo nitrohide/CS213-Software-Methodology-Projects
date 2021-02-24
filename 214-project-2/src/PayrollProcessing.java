@@ -1,3 +1,8 @@
+/**
+ * The PayrollProcessing class processes command lines from the console using Scanner and String Tokenizer class.
+ * The user can interact with the Employee list from this class. 
+ * @author Anuraj Dubey, Chenghao Lin
+*/
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.lang.Exception;
@@ -13,6 +18,9 @@ public class PayrollProcessing {
     static final int MINIMUM_HOURS = 0;
     static final int MAXIMUM_HOURS = 100;
 
+    /**
+     * Initiates and runs the interface as well as displays status messages as inputs are scanned. 
+     */
     public void run(){
         Company Company = new Company();
         System.out.println("Payroll Processing starts.");
@@ -250,6 +258,11 @@ public class PayrollProcessing {
         System.out.println("Payroll Processing completed.");
     }
 
+    /**
+     * Method to check if an inputted department code is valid or not. 
+     * @param department The department code inputted.
+     * @return True if department is valid, and false if invalid. 
+     */
     public boolean isValidDept(String department){
         int validCodes = DEPARTMENT_CODES.length;
         for (int i = 0;i < validCodes;i++){
@@ -260,6 +273,11 @@ public class PayrollProcessing {
         return false;
     }
 
+    /**
+    * Method to check if a manager is valid or not based on a manager code. 
+    * @param role The inputted manager code.
+    * @return True if valid, and false if invalid. 
+    */
     public boolean isValidManager(String role){
         int validCodes = MANAGEMENT_CODES.length;
         for (int i = 0;i < validCodes;i++){
