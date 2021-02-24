@@ -3,17 +3,16 @@ public class Company {
     private int numEmployee;
 
     public Company(){//constructor to create empty container for employee list
-        emplist = new Employee[BAG_INITIAL_VALUE]; 
+        emplist = new Employee[BAG_INITIAL_VALUE];
     }
-    
+
     public static final int BAG_INITIAL_VALUE = 4;
     public static final int BAG_GROW_VALUE = 4;
     public static final int NOT_FOUND = -1;
 
     private int find(Employee employee) {
-        
-        for (int i = 0; i < emplist.length; i++){
-            if (employee == emplist[i]){
+        for (int i = 0; i < numEmployee; i++){
+            if (employee.getProfile().equals(emplist[i].getProfile())){
                 return i;
             }
         }
@@ -21,7 +20,7 @@ public class Company {
     }
 
     private void grow() {
-        
+
         Employee[] temp = new Employee[emplist.length + BAG_GROW_VALUE]; //temp to hold all books before copying into new bag
 
         for (int i = 0; i < numEmployee; i++){
@@ -30,9 +29,9 @@ public class Company {
         emplist = temp;
 
     }
-    
+
     public boolean add(Employee employee) {  //check the profile before adding
-        
+
         if (emplist[emplist.length-1]!= null){
             grow();
         }
@@ -41,14 +40,14 @@ public class Company {
                 emplist[i] = employee;
                 numEmployee++;
                 return true;
-                
+
             }
         }
-        return false; 
+        return false;
     }
 
-    public boolean remove(Employee employee) {  
-        
+    public boolean remove(Employee employee) {
+
         int index_to_remove = find(employee);
 
         for ( int j = index_to_remove; j < emplist.length ; j++ ){//traverse through rest of list and shift to left
@@ -60,71 +59,71 @@ public class Company {
             if ( emplist[j+1] == null){ //make last element in list null to accomodate for removed employee
                 emplist[j] = null;
                 numEmployee--;
-                return true; 
+                return true;
             }
             emplist[j] = emplist[j + 1]; //set each element to value of next to preserve order of employees
         }
-        return false; 
+        return false;
 
     }
 
     public boolean setHours(Employee employee) {  //set working hours for a part time
-        
+
         for(int i = 0; i < emplist.length; i++){
-             
+
             if (emplist[i].getProfile().equals(employee.getProfile()) ){
                 if (emplist[i] instanceof Parttime && employee instanceof Parttime){
-                emplist[i].setHoursWorked(employee.getHoursWorked());
-                return true; 
+                    emplist[i].setHoursWorked(employee.getHoursWorked());
+                    return true;
                 }
             }
 
         }
-        return false; 
-         
+        return false;
+
     }
 
     public void processPayments() { //process payments for all employees
-        
-        for(int i = 0; i < emplist.length; i++){    
-            emplist[i].calculatePayment(); 
+
+        for(int i = 0; i < numEmployee; i++){
+            emplist[i].calculatePayment();
         }
 
     }
-    
-    public void print() {  //print earning statements for all employees 
-        
+
+    public void print() {  //print earning statements for all employees
+
         for(int i = 0; i < emplist.length; i++){
             if (emplist[i]!= null) {
-                System.out.println(emplist[i].toString()); 
+                System.out.println(emplist[i].toString());
             }
         }
     }
-    
+
     public void printByDepartment() { //print earning statements by department
 
-        for( int i = 0; i < emplist.length; i++){
-            if (emplist[i].getProfile().getDepartment() == "CS"){
-                System.out.println(emplist[i].toString()); 
+        for( int i = 0; i < numEmployee; i++){
+            if (emplist[i].getProfile().getDepartment().equals("CS")){
+                System.out.println(emplist[i].toString());
             }
         }
 
-        for( int i = 0; i < emplist.length; i++){
-            if (emplist[i].getProfile().getDepartment() == "ECE"){
-                System.out.println(emplist[i].toString()); 
+        for( int i = 0; i < numEmployee; i++){
+            if (emplist[i].getProfile().getDepartment().equals("ECE")){
+                System.out.println(emplist[i].toString());
             }
         }
 
-        for( int i = 0; i < emplist.length; i++){
-            if (emplist[i].getProfile().getDepartment() == "IT"){
-                System.out.println(emplist[i].toString()); 
+        for( int i = 0; i < numEmployee; i++){
+            if (emplist[i].getProfile().getDepartment().equals("IT")){
+                System.out.println(emplist[i].toString());
             }
         }
 
-    } 
-    
-    public void printByDate() {  //print earning statements by date hired 
-        
+    }
+
+    public void printByDate() {  //print earning statements by date hired
+
         //Using a simple selection sort algorithm to sort employees by date in ascending order
         for (int i = 0; i < emplist.length-1; i++) {   //keep track of sorted part of bag
             int min_idx = i;
@@ -159,6 +158,7 @@ public class Company {
         print(); //print the sorted bag
 
     }
+
     public Employee search(String name, String department, Date dateHired){
         Employee tempEmployee = new Employee(name,department,dateHired);
         int location = find(tempEmployee);
@@ -173,5 +173,6 @@ public class Company {
     public int getNumEmployee(){
         return numEmployee;
     }
-    
+
+
 }
