@@ -7,7 +7,7 @@ public class PayrollProcessing {
     static final int NONMANAGEMENT_ARGS = 5;
     static final int MANAGEMENT_ARGS = 6;
     static final int REMOVE_ARGS = 4;
-    static final int[] MANAGEMENT_CODES = {1,2,3};
+    static final String[] MANAGEMENT_CODES = {"1","2","3"};
     static final String[] DEPARTMENT_CODES = {"CS", "ECE", "IT"};
     static final int MINIMUM_SALARY = 0;
     static final int MINIMUM_HOURS = 0;
@@ -48,14 +48,19 @@ public class PayrollProcessing {
                         department = tokens.nextToken();
                         Date date = new Date(tokens.nextToken());
                         double hourlyRate = Double.parseDouble(tokens.nextToken());
+                        Employee temp = Company.search(name, department, date);
 
                         if (!isValidDept(department)) {
                             System.out.println("'" + department + "'" + " is not a valid department code.");
                         } else if (hourlyRate < MINIMUM_SALARY) {
                             System.out.println("Pay rate cannot be negative.");
                         } else if (!date.isValid()) {
-                            System.out.println("Invalid Date!");
-                        } else {
+                            System.out.println(date + " is not a valid date!");
+                        }
+                        else if(temp != null){
+                            System.out.println("Employee is already in the list.");
+                        }
+                        else {
                             Parttime newParttime = new Parttime(name, department, date, hourlyRate, MINIMUM_HOURS);
                             Company.add(newParttime);
                             System.out.println("Employee added.");
@@ -71,14 +76,19 @@ public class PayrollProcessing {
                         department = tokens.nextToken();
                         Date date = new Date(tokens.nextToken());
                         double yearlySalary = Double.parseDouble(tokens.nextToken());
+                        Employee temp = Company.search(name, department, date);
 
                         if (!isValidDept(department)) {
                             System.out.println("'" + department + "'" + " is not a valid department code.");
                         } else if (yearlySalary < MINIMUM_SALARY) {
                             System.out.println("Salary cannot be negative.");
                         } else if (!date.isValid()) {
-                            System.out.println("Invalid Date!");
-                        } else {
+                            System.out.println(date + " is not a valid date!");
+                        }
+                        else if(temp != null){
+                            System.out.println("Employee is already in the list.");
+                        }
+                        else {
                             Fulltime newFulltime = new Fulltime(name, department, date, yearlySalary);
                             Company.add(newFulltime);
                             System.out.println("Employee added.");
@@ -95,16 +105,20 @@ public class PayrollProcessing {
                         Date date = new Date(tokens.nextToken());
                         double yearlySalary = Double.parseDouble(tokens.nextToken());
                         role = tokens.nextToken();
+                        Employee temp = Company.search(name, department, date);
 
                         if (!isValidDept(department)) {
                             System.out.println("'" + department + "'" + " is not a valid department code.");
                         } else if (yearlySalary < MINIMUM_SALARY) {
                             System.out.println("Salary cannot be negative.");
                         } else if (!date.isValid()) {
-                            System.out.println("Invalid Date!");
+                            System.out.println(date + " is not a valid date!");
                         } else if (!isValidManager(role)) {
                             System.out.println("Invalid management code.");
-                        } else {
+                        }
+                        else if(temp != null){
+                            System.out.println("Employee is already in the list.");
+                        }else {
                             Management Management = new Management(name, department, date, yearlySalary, Integer.parseInt(role));
                             Company.add(Management);
                             System.out.println("Employee added.");
@@ -112,6 +126,7 @@ public class PayrollProcessing {
                     } else {
                         System.out.println("Invalid Command!");
                     }
+                    break;
 
                 case "R":
                     if (Company.getNumEmployee() == 0) {
@@ -124,13 +139,12 @@ public class PayrollProcessing {
                         Date date = new Date(tokens.nextToken());
 
                         Employee removeEmployee = Company.search(name, department, date);
-
-                        boolean isRemoved = Company.remove(removeEmployee);
-                        if (!isRemoved) {
+                        if (removeEmployee == null){
                             System.out.println("Employee doesn't exist.");
-                        } else {
-                            System.out.println("Employee removed.");
+                            break;
                         }
+                        Company.remove(removeEmployee);
+                        System.out.println("Employee removed.");
                     } else {
                         System.out.println("Invalid command!");
                     }
@@ -141,8 +155,8 @@ public class PayrollProcessing {
                         break;
                     }
                     if (numArgs == DISPLAY_ARGS) {
-                        System.out.println("Calculation of employee payments is done");
                         Company.processPayments();
+                        System.out.println("Calculation of employee payments is done");
                     } else {
                         System.out.println("Invalid command!");
                     }
@@ -162,7 +176,7 @@ public class PayrollProcessing {
                         if (hours < MINIMUM_HOURS) {
                             System.out.println("Working hours cannot be negative.");
                         }
-                        if (hours > MAXIMUM_HOURS) {
+                        else if (hours > MAXIMUM_HOURS) {
                             System.out.println("Invalid Hours: over 100.");
                         } else {
                             Employee setEmployee = Company.search(name, department, date);
