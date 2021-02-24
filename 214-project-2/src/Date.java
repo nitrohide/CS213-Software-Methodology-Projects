@@ -1,6 +1,11 @@
 import java.util.Calendar;
 import java.util.StringTokenizer;
 
+/**
+ *  The Date class handles the creation of Date objects and provides all values for said objects. It also holds
+ * a method, comparesTo() which compares the equality of two date objects. 
+ * @author Anuraj Dubey, Chenghao Lin 
+ */
 public class Date implements Comparable<Date> {
     private int year;
     private int month;
@@ -184,6 +189,10 @@ public class Date implements Comparable<Date> {
         return -1;
     } //return 1, 0, or -1
 
+    /**
+     * This is a method that takes a Date object and amends it to a string format for printing.
+     * @return The string formatted Date object.
+     */
     public String toString(){
         return (month + "/" + day + "/" + year);
     }
