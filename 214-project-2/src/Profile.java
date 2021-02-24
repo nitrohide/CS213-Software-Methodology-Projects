@@ -33,7 +33,7 @@ public class Profile {
             if (!otherProfile.department.equals(this.department)){
                 return false;
             }
-            if (!otherProfile.dateHired.equals(this.dateHired)){
+            if (otherProfile.dateHired.compareTo(this.dateHired) != 0){
                 return false;
             }
         }
