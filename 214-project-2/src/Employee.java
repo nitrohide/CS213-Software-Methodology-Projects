@@ -6,8 +6,6 @@ public class Employee {
 
     public Employee(String name, String department, Date dateHired){
         profile = new Profile(name,department,dateHired);
-
-
     }
 
     public Profile getProfile(){
@@ -38,23 +36,23 @@ public class Employee {
         String payment = String.format("%,.2f", this.getPayment());
         return profile.toString() + "::Payment $" + payment + "::";
     }
-    
+
     @Override
     public boolean equals(Object obj) {
 
         if (obj instanceof Employee){
             Employee otherEmployee = (Employee) obj;
             if (!otherEmployee.profile.equals(this.profile)){
-                return false; 
+                return false;
             }
             if (!(otherEmployee.hoursWorked == this.hoursWorked)) {
-                return false; 
+                return false;
             }
             if (!(otherEmployee.payment == this.payment)){
-                return false; 
+                return false;
             }
-            
+
         }
-        return true; 
-    } 
+        return true;
+    }
 }
