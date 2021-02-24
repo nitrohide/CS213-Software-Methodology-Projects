@@ -54,14 +54,15 @@ public class Company {
      * @return Returns true if add was successful, and false otherwise. 
      */
     public boolean add(Employee employee) {  //check the profile before adding
-        if (find(employee) == NOT_FOUND) {
-            if (numEmployee == emplist.length) {
-                grow();
-            }
-            for (int i = 0; i < emplist.length; i++) {
+        if (emplist[emplist.length-1]!= null){
+            grow();
+        }
+        for (int i = 0; i < emplist.length; i++ ){
+            if (emplist[i] == null){
                 emplist[i] = employee;
                 numEmployee++;
                 return true;
+
             }
         }
         return false;
