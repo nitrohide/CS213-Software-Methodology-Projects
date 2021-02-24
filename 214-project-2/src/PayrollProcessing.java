@@ -25,234 +25,233 @@ public class PayrollProcessing {
         Company Company = new Company();
         System.out.println("Payroll Processing starts.");
         boolean payrollStatus = true;
+        String command;
         Scanner scanner = new Scanner(System.in);
 
-        while (payrollStatus && scanner.hasNext()){
-            String nextLine = scanner.nextLine();
-            if (nextLine.equals("")){
-                nextLine=" ";
-            }
-            StringTokenizer tokens = new StringTokenizer(nextLine, " ");
+        while (payrollStatus && scanner.hasNext()) {
+            try {
+                String nextLine = scanner.nextLine();
+                if (nextLine.equals("")){                     //To prevent String Tokenizer class error
+                    nextLine=" ";
+                }
 
-            int numArgs = tokens.countTokens();
-            String command = tokens.nextToken();
+                StringTokenizer tokens = new StringTokenizer(nextLine, " ");
 
-            String name;
-            String department;
-            String role;
+                int numArgs = tokens.countTokens();
 
-            switch (command) {
-                case "Q":
-                    if (numArgs == DISPLAY_ARGS) {
-                        payrollStatus = false;
+                if(!nextLine.equals(" ")) {
+                    command = tokens.nextToken();
+                }else {
+                    command = "";
+                }
+
+                String name;
+                String department;
+                String role;
+
+                switch (command) {
+                    case "Q":
+                        if (numArgs == DISPLAY_ARGS) {
+                            payrollStatus = false;
+                            break;
+                        } else {
+                            System.out.println("Invalid command!");
+                        }
+
+                    case "AP":    //add a part-time employee
+                        if (numArgs == NONMANAGEMENT_ARGS) {
+                            name = tokens.nextToken();
+                            department = tokens.nextToken();
+                            Date date = new Date(tokens.nextToken());
+                            double hourlyRate = Double.parseDouble(tokens.nextToken());
+                            Employee temp = Company.search(name, department, date);
+
+                            if (!isValidDept(department)) {
+                                System.out.println("'" + department + "'" + " is not a valid department code.");
+                            } else if (hourlyRate < MINIMUM_SALARY) {
+                                System.out.println("Pay rate cannot be negative.");
+                            } else if (!date.isValid()) {
+                                System.out.println(date + " is not a valid date!");
+                            } else if (temp != null) {
+                                System.out.println("Employee is already in the list.");
+                            } else {
+                                Parttime newParttime = new Parttime(name, department, date, hourlyRate, MINIMUM_HOURS);
+                                Company.add(newParttime);
+                                System.out.println("Employee added.");
+                            }
+                        } else {
+                            System.out.println("Invalid Command!");
+                        }
                         break;
-                    } else {
-                        System.out.println("Invalid command!");
-                    }
 
-                case "AP":    //add a part-time employee
-                    if (numArgs == NONMANAGEMENT_ARGS) {
-                        name = tokens.nextToken();
-                        department = tokens.nextToken();
-                        Date date = new Date(tokens.nextToken());
-                        double hourlyRate = Double.parseDouble(tokens.nextToken());
-                        Employee temp = Company.search(name, department, date);
+                    case "AF":  //add a full-time employee
+                        if (numArgs == NONMANAGEMENT_ARGS) {
+                            name = tokens.nextToken();
+                            department = tokens.nextToken();
+                            Date date = new Date(tokens.nextToken());
+                            double yearlySalary = Double.parseDouble(tokens.nextToken());
+                            Employee temp = Company.search(name, department, date);
 
-                        if (!isValidDept(department)) {
-                            System.out.println("'" + department + "'" + " is not a valid department code.");
-                        } else if (hourlyRate < MINIMUM_SALARY) {
-                            System.out.println("Pay rate cannot be negative.");
-                        } else if (!date.isValid()) {
-                            System.out.println(date + " is not a valid date!");
+                            if (!isValidDept(department)) {
+                                System.out.println("'" + department + "'" + " is not a valid department code.");
+                            } else if (yearlySalary < MINIMUM_SALARY) {
+                                System.out.println("Salary cannot be negative.");
+                            } else if (!date.isValid()) {
+                                System.out.println(date + " is not a valid date!");
+                            } else if (temp != null) {
+                                System.out.println("Employee is already in the list.");
+                            } else {
+                                Fulltime newFulltime = new Fulltime(name, department, date, yearlySalary);
+                                Company.add(newFulltime);
+                                System.out.println("Employee added.");
+                            }
+                        } else {
+                            System.out.println("Invalid Command!");
                         }
-                        else if(temp != null){
-                            System.out.println("Employee is already in the list.");
-                        }
-                        else {
-                            Parttime newParttime = new Parttime(name, department, date, hourlyRate, MINIMUM_HOURS);
-                            Company.add(newParttime);
-                            System.out.println("Employee added.");
-                        }
-                    } else {
-                        System.out.println("Invalid Command!");
-                    }
-                    break;
-
-                case "AF":  //add a full-time employee
-                    if (numArgs == NONMANAGEMENT_ARGS) {
-                        name = tokens.nextToken();
-                        department = tokens.nextToken();
-                        Date date = new Date(tokens.nextToken());
-                        double yearlySalary = Double.parseDouble(tokens.nextToken());
-                        Employee temp = Company.search(name, department, date);
-
-                        if (!isValidDept(department)) {
-                            System.out.println("'" + department + "'" + " is not a valid department code.");
-                        } else if (yearlySalary < MINIMUM_SALARY) {
-                            System.out.println("Salary cannot be negative.");
-                        } else if (!date.isValid()) {
-                            System.out.println(date + " is not a valid date!");
-                        }
-                        else if(temp != null){
-                            System.out.println("Employee is already in the list.");
-                        }
-                        else {
-                            Fulltime newFulltime = new Fulltime(name, department, date, yearlySalary);
-                            Company.add(newFulltime);
-                            System.out.println("Employee added.");
-                        }
-                    } else {
-                        System.out.println("Invalid Command!");
-                    }
-                    break;
-
-                case "AM":   //add a management employee
-                    if (numArgs == MANAGEMENT_ARGS) {
-                        name = tokens.nextToken();
-                        department = tokens.nextToken();
-                        Date date = new Date(tokens.nextToken());
-                        double yearlySalary = Double.parseDouble(tokens.nextToken());
-                        role = tokens.nextToken();
-                        Employee temp = Company.search(name, department, date);
-
-                        if (!isValidDept(department)) {
-                            System.out.println("'" + department + "'" + " is not a valid department code.");
-                        } else if (yearlySalary < MINIMUM_SALARY) {
-                            System.out.println("Salary cannot be negative.");
-                        } else if (!date.isValid()) {
-                            System.out.println(date + " is not a valid date!");
-                        } else if (!isValidManager(role)) {
-                            System.out.println("Invalid management code.");
-                        }
-                        else if(temp != null){
-                            System.out.println("Employee is already in the list.");
-                        }else {
-                            Management Management = new Management(name, department, date, yearlySalary, Integer.parseInt(role));
-                            Company.add(Management);
-                            System.out.println("Employee added.");
-                        }
-                    } else {
-                        System.out.println("Invalid Command!");
-                    }
-                    break;
-
-                case "R":
-                    if (Company.getNumEmployee() == 0) {
-                        System.out.println("Employee database is empty.");
                         break;
-                    }
-                    if (numArgs == REMOVE_ARGS) {
-                        name = tokens.nextToken();
-                        department = tokens.nextToken();
-                        Date date = new Date(tokens.nextToken());
 
-                        Employee removeEmployee = Company.search(name, department, date);
-                        if (removeEmployee == null){
-                            System.out.println("Employee doesn't exist.");
+                    case "AM":   //add a management employee
+                        if (numArgs == MANAGEMENT_ARGS) {
+                            name = tokens.nextToken();
+                            department = tokens.nextToken();
+                            Date date = new Date(tokens.nextToken());
+                            double yearlySalary = Double.parseDouble(tokens.nextToken());
+                            role = tokens.nextToken();
+                            Employee temp = Company.search(name, department, date);
+
+                            if (!isValidDept(department)) {
+                                System.out.println("'" + department + "'" + " is not a valid department code.");
+                            } else if (yearlySalary < MINIMUM_SALARY) {
+                                System.out.println("Salary cannot be negative.");
+                            } else if (!date.isValid()) {
+                                System.out.println(date + " is not a valid date!");
+                            } else if (!isValidManager(role)) {
+                                System.out.println("Invalid management code.");
+                            } else if (temp != null) {
+                                System.out.println("Employee is already in the list.");
+                            } else {
+                                Management Management = new Management(name, department, date, yearlySalary, Integer.parseInt(role));
+                                Company.add(Management);
+                                System.out.println("Employee added.");
+                            }
+                        } else {
+                            System.out.println("Invalid Command!");
+                        }
+                        break;
+
+                    case "R":
+                        if (Company.getNumEmployee() == 0) {
+                            System.out.println("Employee database is empty.");
                             break;
                         }
-                        Company.remove(removeEmployee);
-                        System.out.println("Employee removed.");
-                    } else {
-                        System.out.println("Invalid command!");
-                    }
-                    break;
-                case "C":
-                    if (Company.getNumEmployee() == 0) {
-                        System.out.println("Employee database is empty.");
-                        break;
-                    }
-                    if (numArgs == DISPLAY_ARGS) {
-                        Company.processPayments();
-                        System.out.println("Calculation of employee payments is done");
-                    } else {
-                        System.out.println("Invalid command!");
-                    }
-                    break;
-                case "S":
-                    if (Company.getNumEmployee() == 0) {
-                        System.out.println("Employee database is empty.");
-                        break;
-                    }
-                    if (numArgs == NONMANAGEMENT_ARGS) {
-                        name = tokens.nextToken();
-                        department = tokens.nextToken();
-                        Date date = new Date(tokens.nextToken());
-                        int hours = Integer.parseInt(tokens.nextToken());
+                        if (numArgs == REMOVE_ARGS) {
+                            name = tokens.nextToken();
+                            department = tokens.nextToken();
+                            Date date = new Date(tokens.nextToken());
 
-
-                        if (hours < MINIMUM_HOURS) {
-                            System.out.println("Working hours cannot be negative.");
-                        }
-                        else if (hours > MAXIMUM_HOURS) {
-                            System.out.println("Invalid Hours: over 100.");
-                        } else {
-                            Employee setEmployee = Company.search(name, department, date);
-                            if (setEmployee == null) {
+                            Employee removeEmployee = Company.search(name, department, date);
+                            if (removeEmployee == null) {
                                 System.out.println("Employee doesn't exist.");
-                            } else if (!Company.setHours(setEmployee)) {
-                                System.out.println("Employee is not part-time");
-                            } else {
-                                Parttime employee = (Parttime)setEmployee;
-                                employee.setHoursWorked(hours);
-                                System.out.println("Working hours set.");
+                                break;
                             }
+                            Company.remove(removeEmployee);
+                            System.out.println("Employee removed.");
+                        } else {
+                            System.out.println("Invalid command!");
                         }
-                    } else {
-                        System.out.println("Invalid command!");
-                    }
-                    break;
-
-                case "PA":
-                    if (numArgs == DISPLAY_ARGS) {
+                        break;
+                    case "C":
                         if (Company.getNumEmployee() == 0) {
                             System.out.println("Employee database is empty.");
+                            break;
                         }
-                        else{
-                            System.out.println("--Printing earning statements for all employees--");
-                            Company.print();
+                        if (numArgs == DISPLAY_ARGS) {
+                            Company.processPayments();
+                            System.out.println("Calculation of employee payments is done");
+                        } else {
+                            System.out.println("Invalid command!");
                         }
-                    }
-                    else{
-                        System.out.println("Invalid command!");
-                    }
-                    break;
-
-                case "PH":
-                    if (numArgs == DISPLAY_ARGS) {
+                        break;
+                    case "S":
                         if (Company.getNumEmployee() == 0) {
                             System.out.println("Employee database is empty.");
+                            break;
                         }
-                        else{
-                            System.out.println("--Printing earning statements by date hired--");
-                            Company.printByDate();
-                        }
-                    }
-                    else{
-                        System.out.println("Invalid command!");
-                    }
-                    break;
+                        if (numArgs == NONMANAGEMENT_ARGS) {
+                            name = tokens.nextToken();
+                            department = tokens.nextToken();
+                            Date date = new Date(tokens.nextToken());
+                            int hours = Integer.parseInt(tokens.nextToken());
 
-                case "PD":
-                    if (numArgs == DISPLAY_ARGS) {
-                        if (Company.getNumEmployee() == 0) {
-                            System.out.println("Employee database is empty.");
-                        }
-                        else{
-                            System.out.println("--Printing earning statements by department--");
-                            Company.printByDepartment();
-                        }
-                    }
-                    else{
-                        System.out.println("Invalid command!");
-                    }
-                    break;
 
-                case "":
-                    break;
+                            if (hours < MINIMUM_HOURS) {
+                                System.out.println("Working hours cannot be negative.");
+                            } else if (hours > MAXIMUM_HOURS) {
+                                System.out.println("Invalid Hours: over 100.");
+                            } else {
+                                Employee setEmployee = Company.search(name, department, date);
+                                if (setEmployee == null) {
+                                    System.out.println("Employee doesn't exist.");
+                                } else if (!Company.setHours(setEmployee)) {
+                                    System.out.println("Employee is not part-time");
+                                } else {
+                                    Parttime employee = (Parttime) setEmployee;
+                                    employee.setHoursWorked(hours);
+                                    System.out.println("Working hours set.");
+                                }
+                            }
+                        } else {
+                            System.out.println("Invalid command!");
+                        }
+                        break;
 
-                default:
-                    System.out.println("Command '" + command + "' not supported!");
+                    case "PA":
+                        if (numArgs == DISPLAY_ARGS) {
+                            if (Company.getNumEmployee() == 0) {
+                                System.out.println("Employee database is empty.");
+                            } else {
+                                System.out.println("--Printing earning statements for all employees--");
+                                Company.print();
+                            }
+                        } else {
+                            System.out.println("Invalid command!");
+                        }
+                        break;
+
+                    case "PH":
+                        if (numArgs == DISPLAY_ARGS) {
+                            if (Company.getNumEmployee() == 0) {
+                                System.out.println("Employee database is empty.");
+                            } else {
+                                System.out.println("--Printing earning statements by date hired--");
+                                Company.printByDate();
+                            }
+                        } else {
+                            System.out.println("Invalid command!");
+                        }
+                        break;
+
+                    case "PD":
+                        if (numArgs == DISPLAY_ARGS) {
+                            if (Company.getNumEmployee() == 0) {
+                                System.out.println("Employee database is empty.");
+                            } else {
+                                System.out.println("--Printing earning statements by department--");
+                                Company.printByDepartment();
+                            }
+                        } else {
+                            System.out.println("Invalid command!");
+                        }
+                        break;
+
+                    case "":
+                        break;
+
+                    default:
+                        System.out.println("Command '" + command + "' not supported!");
+                }
+            } catch (Exception e) {
+                System.out.println(e.toString());
             }
         }
         System.out.println("Payroll Processing completed.");
