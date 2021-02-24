@@ -13,23 +13,19 @@ public class Management extends Fulltime{
         super(name,department,dateHired, yearlySalary);
         this.role = role;
 
-        double payment = getSalary()/26;
         if (this.role == MANAGER){
-            payment = MANAGER_COMPENSATION + payment;
             this.role_name = "Manager";
-            this.compensation = MANAGER_COMPENSATION/PAYPERIODS;
+            compensation = MANAGER_COMPENSATION/PAYPERIODS;
         }
         else if (this.role == DEPARTMENT_HEAD){
-            payment = DEPARTMENT_HEAD_COMPENSATION + payment;
             this.role_name = "Department Head";
-            this.compensation = DEPARTMENT_HEAD_COMPENSATION/PAYPERIODS;
+            compensation = DEPARTMENT_HEAD_COMPENSATION/PAYPERIODS;
         }
         else if (this.role == DIRECTOR){
-            payment = DIRECTOR_COMPENSATION + payment;
             this.role_name = "Director";
-            this.compensation = DIRECTOR_COMPENSATION/PAYPERIODS;
+            compensation = DIRECTOR_COMPENSATION/PAYPERIODS;
         }
-        super.setPayment(payment);
+        super.setCompensation(compensation);
     }
 
     @Override
