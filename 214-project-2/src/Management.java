@@ -1,3 +1,7 @@
+/**
+ * The Management class inherits from Full-time, and is a class to represent an object for a Manager.
+ * @author Anuraj Dubey, Chenghao Lin 
+ */
 public class Management extends Fulltime{
     int role;
     double compensation;
@@ -9,6 +13,14 @@ public class Management extends Fulltime{
     final static int DIRECTOR= 3;
     final static double DIRECTOR_COMPENSATION = 12000;
 
+    /**
+     * Constructor for Management object.
+     * @param name Name of Manager.
+     * @param department Department of Manager.
+     * @param dateHired Date Manager was hired.
+     * @param yearlySalary Salary of Manager. 
+     * @param role Role of Manager.
+     */
     public Management(String name, String department, Date dateHired, double yearlySalary, int role){
         super(name,department,dateHired, yearlySalary);
         this.role = role;
@@ -28,17 +40,28 @@ public class Management extends Fulltime{
         super.setCompensation(compensation);
     }
 
+    /**
+     * Method that calculates payment due for each Manager. 
+     */
     @Override
     public void calculatePayment() {
         super.calculatePayment();
     }
 
+    /**
+     * This is a method that takes a Management object and amends it to a string format for printing.
+     * @return The string formatted Management object.
+     */
     @Override
     public String toString() {
         String formattedCompensation = String.format("%,.2f", this.compensation);
         return super.toString() + "::" + this.role_name + " Compensation $"
                 + formattedCompensation;
     }
+    /**
+     * This method checks if a Management object is equal to another one.
+     * @return True if equal, false if not. 
+     */
     @Override
     public boolean equals(Object obj) {
 
