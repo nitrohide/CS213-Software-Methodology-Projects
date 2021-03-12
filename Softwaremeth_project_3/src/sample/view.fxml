@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu text="File">
@@ -26,12 +26,12 @@
                 <MenuItem text="Export file" />
             </Menu>
             <Menu text="Payment">
-                <MenuItem text="Compute" />
+                <MenuItem text="Compute" onAction="#calculatePayments" />
             </Menu>
             <Menu text="Print">
-                <MenuItem text="All Employee" />
-                <MenuItem text="By Department" />
-                <MenuItem text="By Date Hired" />
+                <MenuItem text="All Employee" onAction="#print" />
+                <MenuItem text="By Department" onAction="#printDept" />
+                <MenuItem text="By Date Hired" onAction="#printDate" />
             </Menu>
         </MenuBar>
     </top>
@@ -52,7 +52,7 @@
                     <RowConstraints minHeight="20.0" prefHeight="50.0" vgrow="SOMETIMES" />
                 </rowConstraints>
                 <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <RadioButton fx:id="csButton" selected="true" text="CS" toggleGroup="$departmentGroup">
+                    <RadioButton fx:id="csButton" text="CS" toggleGroup="$departmentGroup">
                         <ToggleGroup fx:id="departmentGroup" />
                     </RadioButton>
                     <RadioButton fx:id="itButton" text="IT" toggleGroup="$departmentGroup"> </RadioButton>
@@ -72,27 +72,27 @@
                 </HBox>
                 <DatePicker fx:id="dateInput" editable="false" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <HBox alignment="CENTER_LEFT" prefHeight="12.0" prefWidth="300.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <RadioButton fx:id="fulltimeButton" selected="true" text="Full Time" toggleGroup="$employeeGroup">
+                    <RadioButton fx:id="fulltimeButton" onAction="#isFulltime" text="Full Time" toggleGroup="$employeeGroup">
                         <ToggleGroup fx:id="employeeGroup" />
                     </RadioButton>
-                    <RadioButton fx:id="parttimeButton" text="Part Time" toggleGroup="$employeeGroup">
+                    <RadioButton fx:id="parttimeButton" onAction="#isParttime" text="Part Time" toggleGroup="$employeeGroup">
                     </RadioButton>
-                    <RadioButton fx:id="managementButton" text="Management" toggleGroup="$employeeGroup">
+                    <RadioButton fx:id="managementButton" onAction="#isManagement" text="Management" toggleGroup="$employeeGroup">
                     </RadioButton>
                 </HBox>
                 <HBox minWidth="10.0" prefHeight="50.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <Label minWidth="50.0" prefHeight="27.0" prefWidth="90.0" text="Annual Salary" />
-                        <TextField fx:id="salaryInput" disable="true" prefHeight="27.0" prefWidth="200.0" />
+                        <TextField fx:id="salaryInput" disable="false" prefHeight="27.0" prefWidth="200.0" />
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="331.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <Label prefHeight="30.0" prefWidth="90.0" text="Hours Worked  " />
-                        <TextField fx:id="hoursInput" prefHeight="30.0" prefWidth="80.0" />
+                        <TextField fx:id="hoursInput" disable="true" prefHeight="30.0" prefWidth="80.0" />
                     <Label alignment="CENTER" prefHeight="30.0" prefWidth="40.0" text="Rate  " />
-                        <TextField fx:id="rateInput" prefHeight="30.0" prefWidth="80.0" />
+                        <TextField fx:id="rateInput" disable="true" prefHeight="30.0" prefWidth="80.0" />
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <HBox alignment="CENTER_LEFT" prefHeight="12.0" prefWidth="300.0" spacing="25.0">
-                        <RadioButton fx:id="managerButton" disable="true" text="Manager">
+                        <RadioButton fx:id="managerButton" disable="true" text="Manager" toggleGroup="$roleGroup">
                                 <ToggleGroup fx:id="roleGroup" />
                         </RadioButton>
                         <RadioButton fx:id="deptHeadButton" disable="true" text="Department Head" toggleGroup="$roleGroup"> </RadioButton>
@@ -107,9 +107,9 @@
                 </HBox>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="26.0" prefWidth="600.0" spacing="15.0">
-                <Button fx:id="clearButton" prefWidth="120.0" text="Clear" />
-                <Button fx:id="addButton" disable="true" prefWidth="120.0" text="Add Employee" />
-                <Button fx:id="removeButton" disable="true" prefWidth="120.0" text="Remove Employee" />
+                <Button fx:id="clearButton" prefWidth="120.0" text="Clear" onAction="#clear" />
+                <Button fx:id="addButton" disable="true" prefWidth="120.0" text="Add Employee" onAction="#addEmployee" />
+                <Button fx:id="removeButton" disable="true" prefWidth="120.0" text="Remove Employee" onAction="#removeEmployee" />
                 <Button fx:id="setHoursButton" disable="true" prefWidth="120.0" text="Set Hours" />
             </HBox>
         </VBox>

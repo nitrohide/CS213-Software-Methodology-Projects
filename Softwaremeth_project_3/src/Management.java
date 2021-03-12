@@ -21,8 +21,8 @@ public class Management extends Fulltime{
      * @param yearlySalary Salary of Manager.
      * @param role Role of Manager.
      */
-    public Management(String name, String department, Date dateHired, double yearlySalary, int role){
-        super(name,department,dateHired, yearlySalary);
+    public Management(Profile Profile, double yearlySalary, int role){
+        super(Profile, yearlySalary);
         this.role = role;
 
         if (this.role == MANAGER){

@@ -14,8 +14,8 @@ public class Fulltime extends Employee{
      * @param dateHired Date employee was hired.
      * @param yearlySalary Salary of employee.
      */
-    public Fulltime(String name, String department, Date dateHired, double yearlySalary){
-        super(name,department,dateHired);
+    public Fulltime(Profile Profile, double yearlySalary){
+        super(Profile);
         this.yearlySalary = yearlySalary;
         this.compensation = 0;
     }

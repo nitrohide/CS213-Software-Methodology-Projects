@@ -140,45 +140,46 @@ public class Company {
     /**
      * This method prints out all employees in the list in a sequence.
      */
-    public void print() {  //print earning statements for all employees
-
+    public String print() {  //print earning statements for all employees
+        String output = "";
         for(int i = 0; i < emplist.length; i++){
             if (emplist[i]!= null) {
-                System.out.println(emplist[i].toString());
+               output += (emplist[i].toString()) + "\n";
             }
         }
+        return output;
     }
 
     /**
      * This method prints out all earning statments grouped by department.
      */
-    public void printByDepartment() { //print earning statements by department
-
+    public String printByDepartment() { //print earning statements by department
+        String output = "";
         for( int i = 0; i < numEmployee; i++){
             if (emplist[i].getProfile().getDepartment().equals("CS")){
-                System.out.println(emplist[i].toString());
+                output += (emplist[i].toString()) + "\n";
             }
         }
 
         for( int i = 0; i < numEmployee; i++){
             if (emplist[i].getProfile().getDepartment().equals("ECE")){
-                System.out.println(emplist[i].toString());
+                output += (emplist[i].toString()) + "\n";
             }
         }
 
         for( int i = 0; i < numEmployee; i++){
             if (emplist[i].getProfile().getDepartment().equals("IT")){
-                System.out.println(emplist[i].toString());
+                output += (emplist[i].toString()) + "\n";
             }
         }
-
+        return output;
     }
 
     /**
      * This method prints all earning statements sorted by the date each employee was hired.
      */
-    public void printByDate() {  //print earning statements by date hired
-
+    public String printByDate() {  //print earning statements by date hired
+        String output = "";
         //Using a simple selection sort algorithm to sort employees by date in ascending order
         for (int i = 0; i < emplist.length-1; i++) {   //keep track of sorted part of bag
             int min_idx = i;
@@ -210,26 +211,9 @@ public class Company {
             emplist[min_idx] = emplist[i];
             emplist[i] = temp;
         }
-        print(); //print the sorted bag
+        output = print(); //print the sorted bag
+        return output;
 
-    }
-
-    /**
-     * This method is used to search for an Employee in the list with an inputted name, department, and date hired, if needed for convenience.
-     * @param name The name of the employee.
-     * @param department The department the employee works in.
-     * @param dateHired The date the employee was hired.
-     * @return this returns the employee object itself that needed to be found.
-     */
-    public Employee search(String name, String department, Date dateHired){
-        Employee tempEmployee = new Employee(name,department,dateHired);
-        int location = find(tempEmployee);
-        if (location == NOT_FOUND){
-            return tempEmployee = null;
-        }
-        else {
-            return emplist[location];
-        }
     }
 
     /**

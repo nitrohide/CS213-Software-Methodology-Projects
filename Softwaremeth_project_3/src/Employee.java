@@ -13,8 +13,8 @@ public class Employee {
      * @param department This is the department an employee works in.
      * @param dateHired The date an employee was hired.
      */
-    public Employee(String name, String department, Date dateHired){
-        profile = new Profile(name,department,dateHired);
+    public Employee(Profile profile){
+        this.profile = profile;
     }
 
     /**
@@ -76,4 +76,4 @@ public class Employee {
         }
         return true;
     }
-} 
+}
