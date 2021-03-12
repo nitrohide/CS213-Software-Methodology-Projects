@@ -5,7 +5,6 @@
 public class Employee {
 
     private Profile profile;
-    private int hoursWorked;
     private double payment;
 
     /**
@@ -26,21 +25,6 @@ public class Employee {
         return profile;
     }
 
-    /**
-     * Getter method to get the number of hours worked.
-     * @return The hours worked during the pay period.
-     */
-    public int getHoursWorked() {
-        return hoursWorked;
-    }
-
-    /**
-     * Setter method to set the hours worked value.
-     * @param hoursWorked The hours worked.
-     */
-    public void setHoursWorked(int hoursWorked){
-        this.hoursWorked = hoursWorked;
-    }
 
     /**
      * Setter method to set the payment value.
@@ -83,9 +67,6 @@ public class Employee {
         if (obj instanceof Employee){
             Employee otherEmployee = (Employee) obj;
             if (!otherEmployee.profile.equals(this.profile)){
-                return false;
-            }
-            if (!(otherEmployee.hoursWorked == this.hoursWorked)) {
                 return false;
             }
             if (!(otherEmployee.payment == this.payment)){
