@@ -115,7 +115,7 @@ public class Controller {
         chooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files", "*.txt"),
                 new ExtensionFilter("All Files", "*.*"));
         Stage stage = new Stage();
-        File targeFile = chooser.showSaveDialog(stage); //get the reference of the target file
+        File targetFile = chooser.showSaveDialog(stage); //get the reference of the target file
     }
 
     @FXML
@@ -161,7 +161,6 @@ public class Controller {
             textArea.appendText(Company.printByDate());
         }
     }
-
 
     @FXML
     void isParttime(ActionEvent event) {
@@ -212,28 +211,17 @@ public class Controller {
         managerButton.setDisable(false);
         deptHeadButton.setDisable(false);
         directorButton.setDisable(false);
-
-
     }
 
     @FXML
     void setHours(KeyEvent event) {
 
+        /* catch (NumberFormatException e) {
+            textArea.appendText("Non numeric data has been entered.\n"); */
     }
-
 
     @FXML
     void setHoursButton(ActionEvent event) {
-
-    }
-
-    @FXML
-    void setRate(KeyEvent event) {
-
-    }
-
-    @FXML
-    void setSalary(KeyEvent event) {
 
     }
 
