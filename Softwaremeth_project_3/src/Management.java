@@ -3,9 +3,9 @@
  * @author Anuraj Dubey, Chenghao Lin
  */
 public class Management extends Fulltime{
-    int role;
-    double compensation;
-    String role_name;
+    private int role;
+    private double compensation;
+    private String role_name;
     final static int MANAGER = 1;
     final static double MANAGER_COMPENSATION = 5000;
     final static int DEPARTMENT_HEAD = 2;
