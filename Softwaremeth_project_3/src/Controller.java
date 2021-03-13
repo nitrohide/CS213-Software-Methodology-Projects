@@ -1,3 +1,9 @@
+/**
+ *  The Controller class controls the back-end functionality of all interface interactions a user has
+ *  while using the GUI system.
+ * @author Anuraj Dubey, Chenghao Lin
+ */
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -24,6 +30,12 @@ public class Controller {
     private boolean validHours = false;
     private boolean validRate = false;
 
+    final static int FIRST_TOKEN = 1;
+    final static int SECOND_TOKEN = 2;
+    final static int THIRD_TOKEN = 3;
+    final static int FOURTH_TOKEN = 4;
+    final static int FIFTH_TOKEN = 5;
+    final static int SIXTH_TOKEN = 6;
     final static int NOT_FOUND = -1;
     final static int DOES_NOT_EXIST = 0;
     final static int MANAGER = 1;
@@ -97,6 +109,10 @@ public class Controller {
     @FXML
     private TextArea textArea;
 
+    /**
+     * This method takes care of importing a file that holds different employees.
+     * @param event the interaction with the button.
+     */
     @FXML
     void importFile(ActionEvent event) {
         FileChooser chooser = new FileChooser();
@@ -108,6 +124,70 @@ public class Controller {
 
     }
 
+    
+    /**
+     * This method is responsible for reading from a source file that is inputted.
+     * @param sourcefile the file to be read from.
+     */
+    void readFromFile(File sourcefile) {
+        try {
+
+            Scanner s = new Scanner(sourcefile).useDelimiter(",");
+            int token = 1;
+            String employeeType = null;
+            String employeeName = null;
+            String employeeDep = null;
+            String date = null;
+            String payment = null;
+            String role = null;
+            Date dateHired = null;
+
+            while (s.hasNext()) {  //FIX magic numbers
+                if (token == FIRST_TOKEN) {
+                    employeeType = s.next();
+                }
+                if (token == SECOND_TOKEN) {
+                    employeeName = s.next();
+                }
+                if (token == THIRD_TOKEN) {
+                    employeeDep = s.next();
+                }
+                if (token == FOURTH_TOKEN) {
+                    date = s.next();
+                    dateHired = new Date(date);
+                }
+                if (token == FIFTH_TOKEN) {
+                    payment = s.next();
+                }
+                if (token == SIXTH_TOKEN ){
+                    role = s.next();
+                }
+                token++;
+            }
+            Profile p = new Profile(employeeName, employeeDep, dateHired);
+            Employee e = new Employee(p);
+            if (employeeType.equals("P")) {
+                e = addParttime(p);
+            }
+            else if (employeeType.equals("F")) {
+                e = addFulltime(p);
+            }
+            else if (employeeType.equals("M")) {
+                e = addManagement(p);
+            }
+            isValid(e);
+
+            }
+
+         catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method exports a file with data from the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void exportFile(ActionEvent event) {
         FileChooser chooser = new FileChooser();
@@ -117,7 +197,34 @@ public class Controller {
         Stage stage = new Stage();
         File targetFile = chooser.showSaveDialog(stage); //get the reference of the target file
     }
+    
+    /**
+     * This method writes a a file, that is to be exported to the user's computer.
+     * @param targetFile a file to write to.
+     */
+    void  writeToFile(File targetFile){
+        try {
 
+            FileWriter file = new FileWriter(targetFile, true);
+            BufferedWriter out = new BufferedWriter(file);
+            out.write(textArea + "\n");
+            out.close();
+            file.close();
+            //BufferedWriter.flush();
+
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method takes care of the payment calculation to display on the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void calculatePayments(ActionEvent event) {
         if (Company.getNumEmployee() == DOES_NOT_EXIST) {
@@ -129,6 +236,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method takes care of printing the employees in the database onto the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void print(ActionEvent event) {
         if (Company.getNumEmployee() == DOES_NOT_EXIST) {
@@ -140,6 +251,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method takes care of printing the employees in the database by department onto the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void printDept(ActionEvent event) {
         if (Company.getNumEmployee() == DOES_NOT_EXIST) {
@@ -151,6 +266,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method takes care of printing the employees in the database by date hired onto the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void printDate(ActionEvent event) {
         if (Company.getNumEmployee() == DOES_NOT_EXIST) {
@@ -162,6 +281,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method takes care of establishing if an employee is a part time employee in the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void isParttime(ActionEvent event) {
         managerButton.setDisable(true);
@@ -179,6 +302,10 @@ public class Controller {
         salaryInput.clear();
     }
 
+    /**
+     * This method takes care of establishing if an employee a full time employee in the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void isFulltime(ActionEvent event) {
         rateInput.setDisable(true);
@@ -197,6 +324,10 @@ public class Controller {
         directorButton.setSelected(false);
     }
 
+    /**
+     * This method takes care of establishing if an employee is a full time employee in the GUI.
+     * @param event the interaction with the button.
+     */
     @FXML
     void isManagement(ActionEvent event) {
         rateInput.setDisable(true);
@@ -213,6 +344,10 @@ public class Controller {
         directorButton.setDisable(false);
     }
 
+    /**
+     * This method takes care of setting the hours based on user-GUI interaction.
+     * @param event the interaction with the button.
+     */
     @FXML
     void setHours(KeyEvent event) {
 
@@ -220,11 +355,19 @@ public class Controller {
             textArea.appendText("Non numeric data has been entered.\n"); */
     }
 
+    /**
+     * This method takes care of setting the hours based on user-GUI interaction with the button.
+     * @param event the interaction with the button.
+     */
     @FXML
     void setHoursButton(ActionEvent event) {
 
     }
 
+    /**
+     * This method takes care of finalizing the addition of anew employee into the GUI database.
+     * @param event the interaction with the button.
+     */
     @FXML
     void addEmployee(ActionEvent event) {
         try {
@@ -251,6 +394,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method takes care of creating a new profile for the added employee in the GUI.
+     * @return returns a newly created employee profile.
+     */
     @FXML
     private Profile createProfile() {
         try {
@@ -274,6 +421,11 @@ public class Controller {
         return null;
     }
 
+    /**
+     * This method adds a parttime employee to the GUI database.
+     * @param Profile the profile of the part time employee.
+     * @return a new part time employee.
+     */
     @FXML
     private Employee addParttime(Profile Profile) {
         try {
@@ -293,6 +445,11 @@ public class Controller {
         return null;
     }
 
+    /**
+     * This method takes care of adding a full time employee into the GUI.
+     * @param Profile the profile of the employee to be added.
+     * @return a new full time employee.
+     */
     @FXML
     private Employee addFulltime(Profile Profile) {
         try {
@@ -312,6 +469,11 @@ public class Controller {
         return null;
     }
 
+    /**
+     *  This method takes care of adding a full time employee into the GUI.
+     * @param profile the profile of the employee to be added.
+     * @return a new manager object.
+     */
     @FXML
     private Employee addManagement(Profile profile) {
         try {
@@ -336,6 +498,10 @@ public class Controller {
         return null;
     }
 
+    /**
+     * This method gets the code for a manager's role.
+     * @return the manager code.
+     */
     @FXML
     private int getManagementCode() {
         try {
@@ -356,6 +522,10 @@ public class Controller {
         return NOT_FOUND;
     }
 
+    /**
+     * This method checks if an employee is indeed a valid one in the GUI.
+     * @param employee the employee to be checked.
+     */
     @FXML
     void isValid(Employee employee) {
         if (employee == null) {
@@ -367,6 +537,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method removes an employee from the GUI database.
+     * @param event the interaction with the button.
+     */
     @FXML
     void removeEmployee(ActionEvent event) {
         Employee employee;
@@ -382,6 +556,10 @@ public class Controller {
         }
     }
 
+    /**
+     * This method simply clears all data shown in the text area.
+     * @param event the interaction with the button.
+     */
     @FXML
     void clear(ActionEvent event) {
         textArea.clear();
