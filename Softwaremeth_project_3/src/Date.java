@@ -79,67 +79,71 @@ public class Date implements Comparable<Date> {
         Calendar currDate = Calendar.getInstance();
 
         if (this.year <= 0 || this.day <= 0 || this.month <= 0) //check if day, month, year is a negative value or 0
-            return true;
+            return false;
         if (this.month > DECEMBER) //check if month value exceeds the max month of December (12)
-            return true;
+            return false;
         if ( this.year < YEAR_1900 || this.year > CURRENT_YEAR) //check if year exceeds current year, or if year preceeds 1900
-            return true;
+            return false;
         if ( this.year == CURRENT_YEAR){ //if year value is of our current year
             if (this.month > (currDate.get(Calendar.MONTH) + 1)){ //if month value exceeds current month, invalid date
-                return true;
+                return false;
             }
             if (this.month == (currDate.get(Calendar.MONTH) + 1)){ //if month value is current month
                 if (this.day > currDate.get(Calendar.DAY_OF_MONTH)) //if day value is greater than current day, invalid date
-                    return true;
+                    return false;
 
             }
         }
 
         if (this.month == JANUARY && this.day > DAY_31) //check if day in January is invalid
-            return true;
+            return false;
 
         if ( this.month == FEBRUARY){
-            if (this.day > LEAP_DAY) return true; //if day in February is more than 29, return false
+            if (this.day > LEAP_DAY) return false; //if day in February is more than 29, return false
 
             if (this.day == LEAP_DAY){
                 if (!(this.year%QUADRENNIAL == 0)) //if year is not divisible by 4, return false
-                    return true;
+                    return false;
                 else if (this.year%CENTENNIAL == 0){ //if year is divisible by 4 and divisible by 100...
                     if (!(this.year%QUARTERCENTENNIAL == 0)) //if year is divisible by 4 and 100, but not 400, return false
-                        return true;
+                        return false;
                 }
             }
         }
 
         if (this.month == MARCH && this.day > DAY_31) //check if day in March is invalid
-            return true;
+            return false;
 
         if (this.month == APRIL && this.day > DAY_30) //check if day in April is invalid
-            return true;
+            return false;
 
         if (this.month == MAY && this.day > DAY_31) //check if day in May is invalid
-            return true;
+            return false;
 
         if (this.month == JUNE && this.day > DAY_30) //check if day in June is invalid
-            return true;
+            return false;
 
         if (this.month == JULY && this.day > DAY_31) //check if day in July is invalid
-            return true;
+            return false;
 
         if (this.month == AUGUST && this.day > DAY_31) //check if day in August is invalid
-            return true;
+            return false;
 
         if (this.month == SEPTEMBER && this.day > DAY_30) //check if day in September is invalid
-            return true;
+            return false;
 
         if (this.month == OCTOBER && this.day > DAY_31) //check if day in October is invalid
-            return true;
+            return false;
 
         if (this.month == NOVEMBER && this.day > DAY_30) //check if day in November is invalid
-            return true;
+            return false;
 
         //check if day in December is invalid
-        return this.month == DECEMBER && this.day > DAY_31;//if all conditions are passed, date is valid
+        if (this.month == DECEMBER && this.day > DAY_31)//if all conditions are passed, date is valid
+            return false;
+        else{
+            return true;
+        }
     }
 
 
