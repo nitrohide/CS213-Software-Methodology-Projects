@@ -14,6 +14,7 @@ public class DonutOrderController {
     ObservableList<String> cake_flavorList = FXCollections.observableArrayList("Blueberry", "Lemon", "Chocolate Glazed", "Vanilla Glazed");
     ObservableList<String> dnthole_flavorList = FXCollections.observableArrayList("Glazed", "Powdered", "Chocolate", "Jelly-filled");
     ObservableList<String> quantityList = FXCollections.observableArrayList("1", "2", "3", "4", "5");
+    ObservableList<String> orderList = FXCollections.observableArrayList();
 
     @FXML
     private Label title;
@@ -26,6 +27,9 @@ public class DonutOrderController {
 
     @FXML
     private ListView<String> flavorListView;
+
+    @FXML
+    private ListView<String> orderListView;
 
     @FXML
     private Button addItem;
@@ -64,6 +68,30 @@ public class DonutOrderController {
         }
 
     }
+
+
+    public void loadOrderListView() {
+
+        if (flavorListView.getSelectionModel().getSelectedItem() == null){
+
+        }
+        else {
+            String orderItem = flavorListView.getSelectionModel().getSelectedItem() + "(" + selectQuantity.getValue() + ")";
+            orderListView.getItems().add(orderItem);
+        }
+    }
+
+    public void removeOrderListView(){
+
+        if (orderListView.getSelectionModel().getSelectedItem() == null){
+
+        }
+        else {
+            String itemtoRemove = orderListView.getSelectionModel().getSelectedItem();
+            orderListView.getItems().remove(itemtoRemove);
+        }
+    }
+
 
 
 
