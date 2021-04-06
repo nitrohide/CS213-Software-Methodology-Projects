@@ -43,7 +43,7 @@ public class MenuController {
         stage.show();
     }
 
-    /*
+
     @FXML
     private void sendtoCoffeePage(ActionEvent event ) throws IOException{
 
@@ -56,5 +56,5 @@ public class MenuController {
         stage.setTitle("Order Coffee");
         stage.show();
     }
-    */
+
 }
