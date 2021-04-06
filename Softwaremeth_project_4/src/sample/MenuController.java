@@ -43,14 +43,11 @@ public class MenuController {
         stage.show();
     }
 
-
     @FXML
     private void sendtoCoffeePage(ActionEvent event ) throws IOException{
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderingCoffee.fxml"));
         Parent root = loader.load();
         CoffeeOrderController CoffeeOrderController = loader.getController();
-
         Stage stage = new Stage();
         stage.setScene(new Scene(root,450,300));
         stage.setTitle("Order Coffee");
