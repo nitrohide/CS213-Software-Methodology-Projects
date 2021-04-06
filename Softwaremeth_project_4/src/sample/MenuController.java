@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MenuController {
+    private Order order = new Order();
 
     @FXML
     private Label title;
@@ -49,9 +50,35 @@ public class MenuController {
         Parent root = loader.load();
         CoffeeOrderController CoffeeOrderController = loader.getController();
         Stage stage = new Stage();
-        stage.setScene(new Scene(root,450,300));
+        stage.setScene(new Scene(root,577,278));
         stage.setTitle("Order Coffee");
         stage.show();
+    }
+
+    @FXML
+    private void sendtoCurrentOrderPage(ActionEvent event ) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CurrentorderDetail.fxml"));
+        Parent root = loader.load();
+        CurrentorderDetailController CurrentorderDetailController = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root,600,400));
+        stage.setTitle("Your Order");
+        stage.show();
+    }
+
+    @FXML
+    private void sendtoStoreOrdersPage(ActionEvent event ) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StoreOrders.fxml"));
+        Parent root = loader.load();
+        StoreOrdersController StoreOrdersController = loader.getController();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root,600,400));
+        stage.setTitle("Store Orders");
+        stage.show();
+    }
+
+    public Order getOrder() {
+        return this.order;
     }
 
 }
