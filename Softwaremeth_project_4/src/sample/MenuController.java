@@ -22,21 +22,39 @@ public class MenuController {
     private ImageView Donuts;
 
     @FXML
-    private javafx.scene.image.ImageView Coffee;
+    private ImageView Coffee;
 
     @FXML
-    private javafx.scene.control.Button orderDonutsButton;
+    private Button orderDonutsButton;
+
+    @FXML
+    private Button orderCoffeeButton;
 
     @FXML
     private void sendtoDonutPage(ActionEvent event ) throws IOException{
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DonutOrder.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderingDonuts.fxml"));
         Parent root = loader.load();
-        DonutOrderController donutOrderController = loader.getController();
+        DonutOrderController DonutOrderController = loader.getController();
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root,450,300));
         stage.setTitle("Order Donuts");
         stage.show();
     }
+
+    /*
+    @FXML
+    private void sendtoCoffeePage(ActionEvent event ) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("OrderingCoffee.fxml"));
+        Parent root = loader.load();
+        CoffeeOrderController CoffeeOrderController = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root,450,300));
+        stage.setTitle("Order Coffee");
+        stage.show();
+    }
+    */
 }
