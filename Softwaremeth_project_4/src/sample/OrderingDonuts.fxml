@@ -27,3 +27,4 @@
       <TextField fx:id="subtotal_display" layoutX="157.0" layoutY="241.0" prefHeight="27.0" prefWidth="108.0" />
    </children>
 </AnchorPane>
+
