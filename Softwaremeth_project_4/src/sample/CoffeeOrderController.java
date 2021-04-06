@@ -1,39 +1,169 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 
-public class CoffeeOrderController {
-    ObservableList<String> sizeList = FXCollections.observableArrayList("Short", "Tall", "Grande", "Venti");
-    ObservableList<String> quantityList = FXCollections.observableArrayList("1", "2", "3", "4", "5");
+
+public class CoffeeOrderController implements Initializable {
+    private MenuController mainController;
+    private Order order;
+    private static final double MIN_COST = 1.99;
+    private static final double SIZE_INCREASE_COST = 0.50;
+    private static final double ADDIN_COST = 0.20;
+
+
+    // used to store all the quantity dropdowns
+    private ArrayList<ComboBox<String>> addInQuantities = new ArrayList<>();
+    private double subtotal = 0;
+    private Coffee coffee = new Coffee();
+    private DecimalFormat df = new DecimalFormat("0.00");
+
+    boolean creamAdded = false;
+    boolean milkAdded = false;
+    boolean whippedCreamAdded = false;
+    boolean syrupAdded = false;
+    boolean caramelAdded = false;
 
     @FXML
     private ComboBox selectSize;
 
     @FXML
-    private Label title;
-
-    @FXML
     private ComboBox selectQuantity;
 
     @FXML
-    private Label subtotal;
+    private TextArea subtotalText;
 
     @FXML
-    private Button addToOrder;
+    private CheckBox creamCheckbox, milkCheckbox, whippedCreamCheckbox, syrupCheckbox, caramelCheckbox;
 
     @FXML
-    private TextField subtotal_display;
+    private Button addToOrderButton;
 
+    /**
+     * Populate the size dropdown.
+     */
     @FXML
-    public void initialize(){
-        selectSize.setItems(sizeList);
-        selectQuantity.setItems(quantityList);
+    void populateSize() {
+        selectSize.getItems().addAll("Short", "Tall", "Grande", "Venti");
     }
 
+    @FXML
+    void populateQuantity() {
+        selectQuantity.getItems().addAll("1", "2", "3", "4", "5");
+    }
+
+    @FXML
+    void addToOrder() {
+        if (subtotal <= 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Coffee Selected");
+            alert.setHeaderText("You don't have any coffee to be added!");
+            alert.setContentText("Please select a coffee first to place an order.");
+            alert.showAndWait();
+        }
+        else {
+            order.add(coffee);
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Order Added");
+            alert.setHeaderText("Order has been added!");
+            alert.setContentText("This window will now close.");
+            alert.showAndWait();
+
+            Stage stage = (Stage) addToOrderButton.getScene().getWindow();
+            stage.close();
+        }
+    }
+
+    public void setMainController(MenuController controller) {
+        mainController = controller;
+        order = mainController.getOrder();
+    }
+
+    private void setSubtotalText() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setGroupingUsed(true);
+        df.setGroupingSize(3);
+        df.setMinimumFractionDigits(2);
+
+        double subtotal = this.coffee.itemPrice();
+        String subtotalString = df.format(subtotal);
+        subtotalText.setText("$" + subtotalString);
+    }
+
+    public void toggleCream(ActionEvent actionevent){
+        if (creamCheckbox.isSelected()) {
+            boolean creamAdded = true;
+            subtotal += ADDIN_COST;
+        }
+        else{
+            boolean creamAdded = false;
+            subtotal -= ADDIN_COST;
+        }
+        setSubtotalText();
+        }
+
+    public void toggleMilk(ActionEvent actionevent){
+        if (milkCheckbox.isSelected()) {
+            boolean milkAdded = true;
+            subtotal +=ADDIN_COST;
+        }
+        else{
+            boolean milkAdded = false;
+            subtotal -=ADDIN_COST;
+        }
+        setSubtotalText();
+    }
+
+    public void toggleWhippedCream(ActionEvent actionevent){
+        if (whippedCreamCheckbox.isSelected()) {
+            boolean whippedCreamAdded = true;
+            subtotal +=ADDIN_COST;
+        }
+        else{
+            boolean whippedCreamAdded = false;
+            subtotal -=ADDIN_COST;
+        }
+        setSubtotalText();
+    }
+    public void toggleSyrup(ActionEvent actionevent){
+        if (syrupCheckbox.isSelected()) {
+            boolean syrupAdded = true;
+            subtotal += ADDIN_COST;
+        }
+        else{
+            boolean syrupAdded = false;
+            subtotal -= ADDIN_COST;
+        }
+        setSubtotalText();
+    }
+
+    public void toggleCaramel(ActionEvent actionevent) {
+        if (caramelCheckbox.isSelected()) {
+            boolean caramelAdded = true;
+            subtotal += ADDIN_COST;
+        } else {
+            boolean caramelAdded = false;
+            subtotal -= ADDIN_COST;
+        }
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        populateSize();
+        populateQuantity();
+        subtotalText.setText(String.valueOf(subtotal));
+        setSubtotalText();
+    }
 }
