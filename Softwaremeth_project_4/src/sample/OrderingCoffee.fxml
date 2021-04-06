@@ -60,7 +60,7 @@
                                             </HBox.margin>
                                         </Label>
                                         <Pane prefHeight="40.0" prefWidth="23.0" />
-                                        <ComboBox fx:id="selectSize" prefHeight="27.0" prefWidth="91.0" />
+                                        <ComboBox fx:id="selectSize" onAction="#setSelectSize" prefHeight="27.0" prefWidth="91.0" />
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -71,7 +71,7 @@
                                             </HBox.margin>
                                         </Label>
                                         <Pane prefHeight="39.0" prefWidth="56.0" />
-                              <ComboBox fx:id="selectQuantity" prefWidth="150.0" />
+                                        <ComboBox fx:id="selectQuantity" onAction="#setSelectQuantity" prefWidth="150.0" />
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="250.0" GridPane.rowIndex="1">
