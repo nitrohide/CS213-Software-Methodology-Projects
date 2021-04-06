@@ -20,12 +20,24 @@ public class CoffeeOrderController implements Initializable {
     private Order order;
     private static final double MIN_COST = 1.99;
     private static final double SIZE_INCREASE_COST = 0.50;
+    private static final double SHORT_COST = 1.99;
+    private static final double TALL_COST = 2.49;
+    private static final double GRANDE_COST = 2.99;
+    private static final double VENTI_COST = 3.49;
+
     private static final double ADDIN_COST = 0.20;
+    private static final double ONE_COFFEE = 1;
+    private static final double TWO_COFFEES = 2;
+    private static final double THREE_COFFEES = 3;
+    private static final double FOUR_COFFEES = 4;
+    private static final double FIVE_COFFEES = 5;
 
 
     // used to store all the quantity dropdowns
     private ArrayList<ComboBox<String>> addInQuantities = new ArrayList<>();
     private double subtotal = 0;
+    private double currSizeSelection = 0;
+    private double currQtySelection = 0;
     private Coffee coffee = new Coffee();
     private DecimalFormat df = new DecimalFormat("0.00");
 
@@ -97,7 +109,6 @@ public class CoffeeOrderController implements Initializable {
         df.setGroupingSize(3);
         df.setMinimumFractionDigits(2);
 
-        double subtotal = this.coffee.itemPrice();
         String subtotalString = df.format(subtotal);
         subtotalText.setText("$" + subtotalString);
     }
@@ -106,13 +117,15 @@ public class CoffeeOrderController implements Initializable {
         if (creamCheckbox.isSelected()) {
             boolean creamAdded = true;
             subtotal += ADDIN_COST;
+
         }
         else{
             boolean creamAdded = false;
             subtotal -= ADDIN_COST;
+
         }
         setSubtotalText();
-        }
+    }
 
     public void toggleMilk(ActionEvent actionevent){
         if (milkCheckbox.isSelected()) {
@@ -157,8 +170,59 @@ public class CoffeeOrderController implements Initializable {
             boolean caramelAdded = false;
             subtotal -= ADDIN_COST;
         }
+        setSubtotalText();
     }
-    
+
+    public void setSelectSize(ActionEvent actionEvent){
+
+        subtotal -= currSizeSelection;
+        if (selectSize.getValue() == "Short"){
+            subtotal += SHORT_COST;
+            currSizeSelection = SHORT_COST;
+        }
+        else if (selectSize.getValue() == "Tall"){
+            subtotal += TALL_COST;
+            currSizeSelection = TALL_COST;
+        }
+        else if (selectSize.getValue() == "Grande"){
+            subtotal += GRANDE_COST;
+            currSizeSelection = GRANDE_COST;
+        }
+        else if (selectSize.getValue() == "Venti"){
+            subtotal += VENTI_COST;
+            currSizeSelection = VENTI_COST;
+        }
+        setSubtotalText();
+
+    }
+
+    public void  setSelectQuantity(){
+
+        if (currQtySelection != 0) subtotal /= currQtySelection;
+
+        if (selectQuantity.getValue() == "1"){
+            subtotal *= ONE_COFFEE;
+            currQtySelection = ONE_COFFEE;
+        }
+        else if (selectQuantity.getValue() == "2"){
+            subtotal *= TWO_COFFEES;
+            currQtySelection = TWO_COFFEES;
+        }
+        else if (selectQuantity.getValue() == "3"){
+            subtotal *= THREE_COFFEES;
+            currQtySelection = THREE_COFFEES;
+        }
+        else if (selectQuantity.getValue() == "4"){
+            subtotal *= FOUR_COFFEES;
+            currQtySelection = FOUR_COFFEES;
+        }
+        else if (selectQuantity.getValue() == "5"){
+            subtotal *= FIVE_COFFEES;
+            currQtySelection = FIVE_COFFEES;
+        }
+        setSubtotalText();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateSize();
