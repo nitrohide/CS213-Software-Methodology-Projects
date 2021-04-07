@@ -76,10 +76,10 @@ public class Coffee extends MenuItem implements Customizable{
         double price = 0;
         if (this.size != null) {
             switch (this.size) {
-                case "Short" -> price += MIN_COST;
-                case "Tall" -> price += MIN_COST + SIZE_INCREASE_COST;
-                case "Grande" -> price += MIN_COST + (SIZE_INCREASE_COST * 2);
-                case "Venti" -> price += MIN_COST + (SIZE_INCREASE_COST * 3);
+                case "Short" : price += MIN_COST;
+                case "Tall" : price += MIN_COST + SIZE_INCREASE_COST;
+                case "Grande" : price += MIN_COST + (SIZE_INCREASE_COST * 2);
+                case "Venti" : price += MIN_COST + (SIZE_INCREASE_COST * 3);
             }
         } else {
             price = 0;
