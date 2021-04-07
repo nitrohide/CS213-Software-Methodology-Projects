@@ -3,11 +3,20 @@ package sample;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import java.text.DecimalFormat;
+import java.util.StringTokenizer;
 
 
 public class DonutOrderController {
+
+    private static final double YEAST_PRICE = 1.39;
+    private static final double CAKE_PRICE = 1.59;
+    private static final double DONUTHOLE_COST = 0.33;
+    private double subtotal = 0;
+    private double individual_cost = 0;
 
     ObservableList<String> donutTypeList = FXCollections.observableArrayList("Yeast Donut", "Cake Donut", "Donut Holes");
     ObservableList<String> yeast_flavorList = FXCollections.observableArrayList("Glazed", "Chocolate Sprinkled", "Vanilla Sprinkled", "Plain");
@@ -38,10 +47,10 @@ public class DonutOrderController {
     private Button removeItem;
 
     @FXML
-    private Label subtotal;
+    private Label subtotalLabel;
 
     @FXML
-    private TextField subtotal_display;
+    private TextField subtotalText;
 
     @FXML
     private Button addToOrder;
@@ -51,6 +60,16 @@ public class DonutOrderController {
         selectType.setItems(donutTypeList);
         selectQuantity.setItems(quantityList);
         loadListView();
+    }
+
+    private void setSubtotalText() {
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setGroupingUsed(true);
+        df.setGroupingSize(3);
+        df.setMinimumFractionDigits(2);
+
+        String subtotalString = df.format(subtotal);
+        subtotalText.setText("$" + subtotalString);
     }
 
     public void loadListView(){
@@ -72,6 +91,8 @@ public class DonutOrderController {
 
     public void loadOrderListView() {
 
+
+
         if (flavorListView.getSelectionModel().getSelectedItem() == null){
 
         }
@@ -79,6 +100,21 @@ public class DonutOrderController {
             String orderItem = flavorListView.getSelectionModel().getSelectedItem() + "(" + selectQuantity.getValue() + ")";
             orderListView.getItems().add(orderItem);
         }
+
+
+        if (selectType.getValue() == "Yeast Donut"){
+            individual_cost = YEAST_PRICE;
+        }
+        else if (selectType.getValue() == "Cake Donut"){
+            individual_cost = CAKE_PRICE;
+        }
+        else if (selectType.getValue() == "Donut Holes"){
+            individual_cost = DONUTHOLE_COST;
+        }
+        individual_cost *= Double.parseDouble((String) selectQuantity.getValue());
+        subtotal += individual_cost;
+        setSubtotalText();
+
     }
 
     public void removeOrderListView(){
@@ -89,8 +125,45 @@ public class DonutOrderController {
         else {
             String itemtoRemove = orderListView.getSelectionModel().getSelectedItem();
             orderListView.getItems().remove(itemtoRemove);
+            subtractFromSubtotal(itemtoRemove);
         }
+
+
     }
+
+    public void subtractFromSubtotal(String itemtoRemove){
+
+
+        double costofType = 0;
+        double costToRemove = 0;
+        StringTokenizer str = new StringTokenizer(itemtoRemove, "(");
+        String token1 = str.nextToken();
+        String token2 = str.nextToken();
+
+        if (token1 == "Glazed" || token1 == "Chocolate Sprinkled" || token1 == "Vanilla Sprinkled"
+                ||token1 == "Plain"){
+            costofType = YEAST_PRICE;
+
+        }
+        else if (token1 == "Blueberry" || token1 == "Lemon" || token1 == "Chocolate Glazed"
+                ||token1 == "Vanilla Glazed"){
+            costofType = CAKE_PRICE;
+        }
+        else if (token1 == "Glazed" || token1 == "Powdered" || token1 == "Chocolate"
+                ||token1 == "Jelly-filled"){
+            costofType = DONUTHOLE_COST;
+        }
+
+        //System.out.println(str.nextToken().charAt(0));
+        costToRemove = token2.charAt(0);
+        costToRemove *= costofType;
+        subtotal -= costToRemove;
+        setSubtotalText();
+
+
+    }
+
+
 
 
 
