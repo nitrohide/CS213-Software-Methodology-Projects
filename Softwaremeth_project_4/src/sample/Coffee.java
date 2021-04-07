@@ -11,13 +11,7 @@ import java.util.ArrayList;
 public class Coffee extends MenuItem implements Customizable{
     private static final double MIN_COST = 1.99;
     private static final double SIZE_INCREASE_COST = 0.50;
-    /*
-    private static final double TALL_COST = 2.49;
-    private static final double GRANDE_COST = 2.99;
-    private static final double VENTI_COST = 3.49;*/
-
     private static final double ADDIN_COST = 0.20;
-
     private ArrayList<Pair<String, Integer>> addIns;
     private String size;
     private int quantity;
@@ -76,10 +70,14 @@ public class Coffee extends MenuItem implements Customizable{
         double price = 0;
         if (this.size != null) {
             switch (this.size) {
-                case "Short" : price += MIN_COST;
-                case "Tall" : price += MIN_COST + SIZE_INCREASE_COST;
-                case "Grande" : price += MIN_COST + (SIZE_INCREASE_COST * 2);
-                case "Venti" : price += MIN_COST + (SIZE_INCREASE_COST * 3);
+                case "Short" :
+                    price += MIN_COST;
+                case "Tall" :
+                    price += MIN_COST + SIZE_INCREASE_COST;
+                case "Grande" :
+                    price += MIN_COST + (SIZE_INCREASE_COST * 2);
+                case "Venti" :
+                    price += MIN_COST + (SIZE_INCREASE_COST * 3);
             }
         } else {
             price = 0;

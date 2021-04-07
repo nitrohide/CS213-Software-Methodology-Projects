@@ -10,7 +10,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 
@@ -170,11 +169,11 @@ public class CoffeeOrderController implements Initializable {
     public void toggleWhippedCream(ActionEvent actionevent){
         if (whippedCreamCheckbox.isSelected()) {
             boolean whippedCreamAdded = true;
-            subtotal +=ADDIN_COST;
+            subtotal += ADDIN_COST;
         }
         else{
             boolean whippedCreamAdded = false;
-            subtotal -=ADDIN_COST;
+            subtotal -= ADDIN_COST;
         }
         setSubtotalText();
     }

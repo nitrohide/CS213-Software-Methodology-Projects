@@ -1,16 +1,20 @@
 package sample;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 
-
+/**
+ * Controller for the donut order page, allows users to place orders for different types of donuts
+ *
+ * @author Anuraj Dubey, Chenghao Lin
+ */
 public class DonutOrderController {
+    private MenuController menuController;
+    private Order order;
 
     private static final double YEAST_PRICE = 1.39;
     private static final double CAKE_PRICE = 1.59;
@@ -55,6 +59,9 @@ public class DonutOrderController {
     @FXML
     private Button addToOrder;
 
+    /**
+     * initializes the page by filling the donut type list and number of donuts able to purchase
+     */
     @FXML
     public void initialize(){
         selectType.setItems(donutTypeList);
@@ -72,6 +79,9 @@ public class DonutOrderController {
         subtotalText.setText("$" + subtotalString);
     }
 
+    /**
+     * loads the listview with the types of flavors with their respective donuts
+     */
     public void loadListView(){
 
         flavorListView.getItems().removeAll(flavorListView.getItems());
@@ -88,10 +98,10 @@ public class DonutOrderController {
 
     }
 
-
+    /**
+     * will load the current donut order selected
+     */
     public void loadOrderListView() {
-
-
 
         if (flavorListView.getSelectionModel().getSelectedItem() == null){
 
@@ -117,6 +127,9 @@ public class DonutOrderController {
 
     }
 
+    /**
+     * will remove any donuts that the user wants to remove from order
+     */
     public void removeOrderListView(){
 
         if (orderListView.getSelectionModel().getSelectedItem() == null){
@@ -132,8 +145,6 @@ public class DonutOrderController {
     }
 
     public void subtractFromSubtotal(String itemtoRemove){
-
-
         double costofType = 0;
         double costToRemove = 0;
         StringTokenizer str = new StringTokenizer(itemtoRemove, "(");
@@ -169,7 +180,14 @@ public class DonutOrderController {
 
 
 
-
-
+    /**
+     *sets reference to the menu controller
+     * @param controller of the main menu
+     */
+    public void setMainController(MenuController controller) {
+        menuController = controller;
+        order = menuController.getOrder();
+    }
 
 }
+
