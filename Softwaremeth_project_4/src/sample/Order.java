@@ -5,7 +5,11 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-
+/**
+ * Order object that holds all the items in the current order
+ *
+ * @author Anuraj Dubey, Chenghao Lin
+ */
 public class Order implements Customizable {
     private final static int FIRSTORDER = 0;
     private static int currID = FIRSTORDER;
@@ -15,12 +19,20 @@ public class Order implements Customizable {
     private ObservableList<String> toStringOrder;
     private ArrayList<MenuItem> order;
 
+    /**
+     * Constructor for the order object
+     */
     public Order() {
         this.orderID = currID++;
         order = new ArrayList<>();
         toStringOrder = FXCollections.observableArrayList();
     }
 
+    /**
+     * Adds a menuitem object to the current order
+     * @param obj to be added to the order
+     * @return true if menuitem is added, false otherwise
+     */
     @Override
     public boolean add(Object obj) {
         if (obj instanceof MenuItem) {
@@ -32,6 +44,11 @@ public class Order implements Customizable {
         return false;
     }
 
+    /**
+     *  Remove a menuitem object to the current order
+     * @param obj to be removed from the order
+     * @return True if menuItem is removed, false otherwise
+     */
     @Override
     public boolean remove(Object obj) {
         if (obj instanceof String) {
@@ -48,10 +65,10 @@ public class Order implements Customizable {
         return false;
     }
 
-    public ObservableList<String> getToStringOrder() {
-        return toStringOrder;
-    }
-
+    /**
+     * Gets the subtotal price of the entire order
+     * @return subtotal price of entire order
+     */
     public double getSubTotal() {
         double sum = 0;
         for (MenuItem item : order) {
@@ -60,18 +77,34 @@ public class Order implements Customizable {
         return sum;
     }
 
+    /**
+     * Calculates the sales tax with the NJ tax rate with the subtotal of the order
+     * @return the sales tax of the order
+     */
     public double getSalesTax() {
         return getSubTotal() * NJ_TAX_RATE;
     }
 
+    /**
+     * calculates the total cost of the order with subtotal+salestax
+     * @return
+     */
     public double getTotal() {
         return getSubTotal() + getSalesTax();
     }
 
+    /**
+     * finds the number of items in the order
+     * @return the number of items in the order
+     */
     public int numItems() {
         return order.size();
     }
 
+    /**
+     * to find the ID of the order
+     * @return the ordernumber or the orderID, uniquely identifying the order
+     */
     public int getID() {
         return this.orderID;
     }

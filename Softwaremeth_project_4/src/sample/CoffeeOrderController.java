@@ -14,27 +14,27 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 
-
+/**
+ * Controller for the coffee ordering page, allows users to order coffee, with choice of addins size and quantity,
+ *
+ * @author Anuraj Dubey, Chenghao Lin
+ */
 public class CoffeeOrderController implements Initializable {
     private MenuController mainController;
     private Order order;
-    private static final double MIN_COST = 1.99;
-    private static final double SIZE_INCREASE_COST = 0.50;
+
     private static final double SHORT_COST = 1.99;
     private static final double TALL_COST = 2.49;
     private static final double GRANDE_COST = 2.99;
     private static final double VENTI_COST = 3.49;
 
     private static final double ADDIN_COST = 0.20;
-    private static final double ONE_COFFEE = 1;
-    private static final double TWO_COFFEES = 2;
-    private static final double THREE_COFFEES = 3;
-    private static final double FOUR_COFFEES = 4;
-    private static final double FIVE_COFFEES = 5;
+    private static final int ONE_COFFEE = 1;
+    private static final int TWO_COFFEES = 2;
+    private static final int THREE_COFFEES = 3;
+    private static final int FOUR_COFFEES = 4;
+    private static final int FIVE_COFFEES = 5;
 
-
-    // used to store all the quantity dropdowns
-    private ArrayList<ComboBox<String>> addInQuantities = new ArrayList<>();
     private double subtotal = 0;
     private double currSizeSelection = 0;
     private double currQtySelection = 0;
@@ -63,18 +63,24 @@ public class CoffeeOrderController implements Initializable {
     private Button addToOrderButton;
 
     /**
-     * Populate the size dropdown.
+     * Populate the selectsize combomenu.
      */
     @FXML
     void populateSize() {
         selectSize.getItems().addAll("Short", "Tall", "Grande", "Venti");
     }
 
+    /**
+     * populates the selectquantity combomenu
+     */
     @FXML
     void populateQuantity() {
         selectQuantity.getItems().addAll("1", "2", "3", "4", "5");
     }
 
+    /**
+     * allows user to add the current coffee selection to be added to the order
+     */
     @FXML
     void addToOrder() {
         if (subtotal <= 0) {
@@ -98,11 +104,19 @@ public class CoffeeOrderController implements Initializable {
         }
     }
 
+
+    /**
+     * references the menu controller
+     * @param controller of the menu
+     */
     public void setMainController(MenuController controller) {
         mainController = controller;
         order = mainController.getOrder();
     }
 
+    /**
+     * sets the textfield to the subtotal cost of the current coffee
+     */
     private void setSubtotalText() {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setGroupingUsed(true);
@@ -113,13 +127,19 @@ public class CoffeeOrderController implements Initializable {
         subtotalText.setText("$" + subtotalString);
     }
 
+    /**
+     * lets the program know when user checks the togglecream checkbox
+     * @param actionevent when user checks the cream checkbox
+     */
     public void toggleCream(ActionEvent actionevent){
         if (creamCheckbox.isSelected()) {
             boolean creamAdded = true;
             subtotal += ADDIN_COST;
+            this.coffee.add("cream");
 
         }
         else{
+            this.coffee.remove("cream");
             boolean creamAdded = false;
             subtotal -= ADDIN_COST;
 
@@ -127,6 +147,10 @@ public class CoffeeOrderController implements Initializable {
         setSubtotalText();
     }
 
+    /**
+     * lets the program know when the user toggles the milk checkbox
+     * @param actionevent when user checks the milk checkbox
+     */
     public void toggleMilk(ActionEvent actionevent){
         if (milkCheckbox.isSelected()) {
             boolean milkAdded = true;
@@ -139,6 +163,10 @@ public class CoffeeOrderController implements Initializable {
         setSubtotalText();
     }
 
+    /**
+     * lets the program know when the user toggles the whippedcream checkbox
+     * @param actionevent when the user toggles the whippedcream checkbox
+     */
     public void toggleWhippedCream(ActionEvent actionevent){
         if (whippedCreamCheckbox.isSelected()) {
             boolean whippedCreamAdded = true;
@@ -162,6 +190,10 @@ public class CoffeeOrderController implements Initializable {
         setSubtotalText();
     }
 
+    /**
+     * lets the program know when the user toggles the caramel checkbox
+     * @param actionevent when the user toggles the caramel checkbox
+     */
     public void toggleCaramel(ActionEvent actionevent) {
         if (caramelCheckbox.isSelected()) {
             boolean caramelAdded = true;
@@ -173,29 +205,40 @@ public class CoffeeOrderController implements Initializable {
         setSubtotalText();
     }
 
+    /**
+     * Sets the size of the coffee being placed
+     * @param actionEvent when user picks the size of the drink from the combomenu
+     */
     public void setSelectSize(ActionEvent actionEvent){
 
         subtotal -= currSizeSelection;
         if (selectSize.getValue() == "Short"){
             subtotal += SHORT_COST;
             currSizeSelection = SHORT_COST;
+            coffee.setSize("Short");
         }
         else if (selectSize.getValue() == "Tall"){
             subtotal += TALL_COST;
             currSizeSelection = TALL_COST;
+            coffee.setSize("Tall");
         }
         else if (selectSize.getValue() == "Grande"){
             subtotal += GRANDE_COST;
             currSizeSelection = GRANDE_COST;
+            coffee.setSize("Grande");
         }
         else if (selectSize.getValue() == "Venti"){
             subtotal += VENTI_COST;
             currSizeSelection = VENTI_COST;
+            coffee.setSize("Venti");
         }
         setSubtotalText();
 
     }
 
+    /**
+     * sets the quantity of coffees being placed
+     */
     public void  setSelectQuantity(){
 
         if (currQtySelection != 0) subtotal /= currQtySelection;
@@ -203,26 +246,36 @@ public class CoffeeOrderController implements Initializable {
         if (selectQuantity.getValue() == "1"){
             subtotal *= ONE_COFFEE;
             currQtySelection = ONE_COFFEE;
+            coffee.setQuantity(ONE_COFFEE);
         }
         else if (selectQuantity.getValue() == "2"){
             subtotal *= TWO_COFFEES;
             currQtySelection = TWO_COFFEES;
+            coffee.setQuantity(TWO_COFFEES);
         }
         else if (selectQuantity.getValue() == "3"){
             subtotal *= THREE_COFFEES;
             currQtySelection = THREE_COFFEES;
+            coffee.setQuantity(THREE_COFFEES);
         }
         else if (selectQuantity.getValue() == "4"){
             subtotal *= FOUR_COFFEES;
             currQtySelection = FOUR_COFFEES;
+            coffee.setQuantity(FOUR_COFFEES);
         }
         else if (selectQuantity.getValue() == "5"){
             subtotal *= FIVE_COFFEES;
             currQtySelection = FIVE_COFFEES;
+            coffee.setQuantity(FIVE_COFFEES);
         }
         setSubtotalText();
     }
 
+    /**
+     * intializes the page when the page first loads
+     * @param url of path from root
+     * @param resourceBundle to localize the root
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateSize();

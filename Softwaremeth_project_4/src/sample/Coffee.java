@@ -3,6 +3,11 @@ package sample;
 import javafx.util.Pair;
 import java.util.ArrayList;
 
+/**
+ * Coffee class that defines the object
+ *
+ * @author Anuraj Dubey, Chenghao Lin
+ */
 public class Coffee extends MenuItem implements Customizable{
     private static final double MIN_COST = 1.99;
     private static final double SIZE_INCREASE_COST = 0.50;
@@ -17,12 +22,20 @@ public class Coffee extends MenuItem implements Customizable{
     private String size;
     private int quantity;
 
+    /**
+     * Coffee constructor, initializes object
+     */
     public Coffee() {
         this.addIns = new ArrayList<>();
         this.size = null;
         this.quantity = 0;
     }
 
+    /**
+     * adds the add-ins to the coffee object
+     * @param obj of add-in
+     * @return true if successfully added, false otherwise
+     */
     @Override
     public boolean add(Object obj) {
         boolean added;
@@ -37,6 +50,11 @@ public class Coffee extends MenuItem implements Customizable{
         return added;
     }
 
+    /**
+     * Removes add-in from the object
+     * @param obj the add-in that is being removed
+     * @return true if remove successful, false otherwise
+     */
     @Override
     public boolean remove(Object obj) {
         boolean removed;
@@ -50,6 +68,10 @@ public class Coffee extends MenuItem implements Customizable{
         return removed;
     }
 
+    /**
+     * returns the item price of the coffee after size,quantity, and addins are gathered
+     * @return sub-total of the coffee before tax
+     */
     public double itemPrice() {
         double price = 0;
         if (this.size != null) {
@@ -73,6 +95,10 @@ public class Coffee extends MenuItem implements Customizable{
         return super.getPrice();
     }
 
+    /**
+     * makes the coffee object into string format to be displayed
+     * @return string format of the coffee object
+     */
     @Override
     public String toString() {
         String coffeeString = "Coffee, ";
@@ -84,10 +110,18 @@ public class Coffee extends MenuItem implements Customizable{
         return coffeeString;
     }
 
+    /**
+     * setter method to set the size of the coffee
+     * @param size of the coffee object
+     */
     public void setSize(String size) {
         this.size = size;
     }
 
+    /**
+     * setter method to set the number of coffees ordered
+     * @param quantity of coffee ordered
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
