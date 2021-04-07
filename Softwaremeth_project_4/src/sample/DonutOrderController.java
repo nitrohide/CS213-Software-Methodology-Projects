@@ -9,14 +9,8 @@ import javafx.scene.control.*;
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 
-/**
- * Controller for the donut order page, allows users to place orders for different types of donuts
- *
- * @author Anuraj Dubey, Chenghao Lin
- */
+
 public class DonutOrderController {
-    private MenuController menuController;
-    private Order order;
 
     private static final double YEAST_PRICE = 1.39;
     private static final double CAKE_PRICE = 1.59;
@@ -61,9 +55,6 @@ public class DonutOrderController {
     @FXML
     private Button addToOrder;
 
-    /**
-     * initializes the page by filling the donut type list and number of donuts able to purchase
-     */
     @FXML
     public void initialize(){
         selectType.setItems(donutTypeList);
@@ -81,9 +72,6 @@ public class DonutOrderController {
         subtotalText.setText("$" + subtotalString);
     }
 
-    /**
-     * loads the listview with the types of flavors with their respective donuts
-     */
     public void loadListView(){
 
         flavorListView.getItems().removeAll(flavorListView.getItems());
@@ -100,10 +88,10 @@ public class DonutOrderController {
 
     }
 
-    /**
-     * will load the current donut order selected
-     */
+
     public void loadOrderListView() {
+
+
 
         if (flavorListView.getSelectionModel().getSelectedItem() == null){
 
@@ -129,9 +117,6 @@ public class DonutOrderController {
 
     }
 
-    /**
-     * will remove any donuts that the user wants to remove from order
-     */
     public void removeOrderListView(){
 
         if (orderListView.getSelectionModel().getSelectedItem() == null){
@@ -154,25 +139,29 @@ public class DonutOrderController {
         StringTokenizer str = new StringTokenizer(itemtoRemove, "(");
         String token1 = str.nextToken();
         String token2 = str.nextToken();
+        double qty = (double) (token2.charAt(0) - '0');
 
-        if (token1 == "Glazed" || token1 == "Chocolate Sprinkled" || token1 == "Vanilla Sprinkled"
-                ||token1 == "Plain"){
+
+
+        if (token1.equals("Glazed") || token1.equals("Chocolate Sprinkled") || token1.equals("Vanilla Sprinkled")
+                ||token1.equals("Plain")){
             costofType = YEAST_PRICE;
 
         }
-        else if (token1 == "Blueberry" || token1 == "Lemon" || token1 == "Chocolate Glazed"
-                ||token1 == "Vanilla Glazed"){
+        else if (token1.equals("Blueberry") || token1.equals("Lemon") || token1.equals("Chocolate Glazed")
+                ||token1.equals("Vanilla Glazed")){
             costofType = CAKE_PRICE;
+
         }
-        else if (token1 == "Glazed" || token1 == "Powdered" || token1 == "Chocolate"
-                ||token1 == "Jelly-filled"){
+        else if (token1.equals("Glazed") || token1.equals("Powdered") || token1.equals("Chocolate")
+                ||token1.equals("Jelly-filled")){
             costofType = DONUTHOLE_COST;
         }
 
-        //System.out.println(str.nextToken().charAt(0));
-        costToRemove = token2.charAt(0);
-        costToRemove *= costofType;
-        subtotal -= costToRemove;
+
+
+        costofType = costofType * qty;
+        subtotal = subtotal - costofType;
         setSubtotalText();
 
 
@@ -180,14 +169,7 @@ public class DonutOrderController {
 
 
 
-    /**
-     *sets reference to the menu controller
-     * @param controller of the main menu
-     */
-    public void setMainController(MenuController controller) {
-        menuController = controller;
-        order = menuController.getOrder();
-    }
+
+
 
 }
-
