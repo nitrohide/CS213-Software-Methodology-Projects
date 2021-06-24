@@ -1,2 +1,2 @@
-# cs213-project-1
-Library Project
+# Software Methodology - cs213-projects
+
